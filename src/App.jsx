@@ -81,6 +81,7 @@ export default function App() {
   ]);
   const [decisionsAccepted, setDecisionsAccepted] = useState(14);
   const [decisionQualityScore, setDecisionQualityScore] = useState(94);
+  const [approvedMachines, setApprovedMachines] = useState(new Set());
   const [esgMetrics, setEsgMetrics] = useState({
     energy_saved: 241,
     carbon_reduction: 31,
@@ -821,6 +822,7 @@ export default function App() {
       return next;
     });
 
+    setApprovedMachines(prev => new Set([...prev, mid]));
     setDecisionsAccepted(prev => prev + 1);
     setFailuresPrevented(prev => prev + 1);
     
@@ -891,7 +893,7 @@ export default function App() {
 
     if (walkthroughStep === 4 && mid === "M3") {
       setWalkthroughStep(5);
-      setActiveTab("planner");
+      // Don't auto-navigate — let user see the Dispatched confirmation first
     }
   };
 
@@ -1588,15 +1590,15 @@ export default function App() {
                   {telemetry[selectedMachine] ? (
                     <>
                       {/* AI Executive Advisor & Financial Justification Panel */}
-                      <div className={`glass-panel rounded-2xl p-5 border ${getMachineColor(telemetry[selectedMachine].status)} relative overflow-hidden`}>
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-white opacity-5 rounded-full blur-2xl -translate-y-8 translate-x-8"></div>
+                      <div className={`glass-panel rounded-2xl p-5 border ${getMachineColor(telemetry[selectedMachine].status)} relative`}>
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-white opacity-5 rounded-full blur-2xl" style={{transform: 'translate(30%, -30%)'}}></div>
                         
-                        <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
-                          <div>
+                        <div className="flex items-start justify-between border-b border-white/10 pb-3 mb-4 gap-2">
+                          <div className="min-w-0">
                             <h3 className="font-bold text-base font-display text-white">🧠 AI Executive Advisor</h3>
-                            <p className="text-[10px] text-slate-300 uppercase tracking-widest font-mono mt-0.5">{machineNamesMap[selectedMachine]}</p>
+                            <p className="text-[10px] text-slate-300 uppercase tracking-widest font-mono mt-0.5 truncate">{machineNamesMap[selectedMachine]}</p>
                           </div>
-                          {getStatusBadge(telemetry[selectedMachine].status)}
+                          <div className="shrink-0">{getStatusBadge(telemetry[selectedMachine].status)}</div>
                         </div>
 
                         <div className="space-y-4">
@@ -1636,15 +1638,21 @@ export default function App() {
                               </div>
                               
                               <div className="flex gap-2">
+                                {approvedMachines.has(selectedMachine) ? (
+                                  <div className="flex-1 bg-emerald-950/60 border border-emerald-700/50 text-emerald-400 py-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5">
+                                    <CheckCircle className="w-3.5 h-3.5" /> Dispatched ✓
+                                  </div>
+                                ) : (
+                                  <button 
+                                    onClick={() => approveRecommendation(selectedMachine)}
+                                    className="flex-1 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white py-2 rounded-lg font-bold text-xs transition flex items-center justify-center gap-1.5 glow-emerald"
+                                  >
+                                    <CheckCircle className="w-3.5 h-3.5" /> Approve Plan
+                                  </button>
+                                )}
                                 <button 
-                                  onClick={() => approveRecommendation(selectedMachine)}
-                                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white py-2 rounded-lg font-bold text-xs transition flex items-center justify-center gap-1.5 glow-emerald"
-                                >
-                                  <CheckCircle className="w-3.5 h-3.5" /> Approve Plan
-                                </button>
-                                <button 
-                                  onClick={() => { setActiveTab("dashboard"); }}
-                                  className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2 rounded-lg font-semibold text-xs transition border border-slate-700"
+                                  onClick={() => setActiveTab("opportunities")}
+                                  className="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white py-2 rounded-lg font-semibold text-xs transition border border-slate-700"
                                 >
                                   Compare Alternatives
                                 </button>
