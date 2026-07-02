@@ -93,6 +93,7 @@ export default function App() {
   const [anomalyMachine, setAnomalyMachine] = useState("M1");
   const [anomalyType, setAnomalyType] = useState("bearing_vibration");
   const [simLabOpen, setSimLabOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // What-if simulator controls
   const [simMachine, setSimMachine] = useState("M3");
@@ -959,113 +960,89 @@ export default function App() {
   return (
     <div className="flex h-screen overflow-hidden text-slate-100 font-sans">
       {/* SIDEBAR NAVIGATION */}
-      <aside className="w-64 bg-[#0a0e17] border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto">
-        <div>
-          {/* Logo */}
-          <div className="p-6 border-b border-slate-800 flex items-center gap-3">
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} bg-[#0a0e17] border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto transition-all duration-300`}>
+        
+        {/* Logo + Toggle */}
+        <div className={`border-b border-slate-800 flex items-center ${sidebarOpen ? 'p-6 gap-3 justify-between' : 'p-3 justify-center'}`}>
+          {sidebarOpen && (
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <Cpu className="w-7 h-7 text-emerald-400" />
+                <span className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border border-[#0a0e17] ${wsConnected ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
+              </div>
+              <div>
+                <h1 className="text-lg font-bold font-display tracking-tight text-white">EdgeTwin AI</h1>
+                <p className="text-[10px] text-emerald-400 uppercase tracking-widest font-mono font-semibold">Decision Intelligence</p>
+              </div>
+            </div>
+          )}
+          {!sidebarOpen && (
             <div className="relative">
-              <Cpu className="w-7 h-7 text-emerald-400" />
-              <span className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border border-[#0a0e17] ${wsConnected ? 'bg-emerald-500' : 'bg-rose-500'}`} title={wsConnected ? "Edge Active" : "Edge Offline"}></span>
+              <Cpu className="w-6 h-6 text-emerald-400" />
+              <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-[#0a0e17] ${wsConnected ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
             </div>
-            <div>
-              <h1 className="text-lg font-bold font-display tracking-tight text-white m-0 font-display">EdgeTwin AI</h1>
-              <p className="text-[10px] text-emerald-400 uppercase tracking-widest font-mono font-semibold">Decision Intelligence</p>
-            </div>
-          </div>
-
-          {/* Nav Items */}
-          <nav className="p-4 space-y-1">
-            <button
-              onClick={() => setActiveTab("dashboard")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "dashboard" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <Layers className="w-4 h-4" />
-              <span>Digital Twin Grid</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("profit")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "profit" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <DollarSign className="w-4 h-4" />
-              <span>Profit ROI Hub</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("analytics")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "analytics" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <BarChart2 className="w-4 h-4" />
-              <span>Analytics & XAI</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("whatif")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "whatif" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <RefreshCw className="w-4 h-4" />
-              <span>What-If Sandbox</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("projections")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "projections" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <Clock className="w-4 h-4" />
-              <span>Scenario Projections</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("opportunities")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "opportunities" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Opportunity Finder</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("planner")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "planner" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Maintenance Planner</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("timeline")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "timeline" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <Activity className="w-4 h-4" />
-              <span>Incident Timeline</span>
-            </button>
-            <button
-              onClick={() => setActiveTab("architecture")}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${activeTab === "architecture" ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
-            >
-              <Cpu className="w-4 h-4" />
-              <span>Deployment & Innovation</span>
-            </button>
-          </nav>
+          )}
+          <button
+            onClick={() => setSidebarOpen(prev => !prev)}
+            className="text-slate-500 hover:text-white transition p-1 rounded hover:bg-slate-800"
+            title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            {sidebarOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+            )}
+          </button>
         </div>
 
+        {/* Nav Items */}
+        <nav className={`${sidebarOpen ? 'p-4' : 'p-2'} space-y-1 flex-1`}>
+          {[
+            { tab: "dashboard", icon: <Layers className="w-4 h-4" />, label: "Digital Twin Grid" },
+            { tab: "profit", icon: <DollarSign className="w-4 h-4" />, label: "Profit ROI Hub" },
+            { tab: "analytics", icon: <BarChart2 className="w-4 h-4" />, label: "Analytics & XAI" },
+            { tab: "whatif", icon: <RefreshCw className="w-4 h-4" />, label: "What-If Sandbox" },
+            { tab: "projections", icon: <Clock className="w-4 h-4" />, label: "Scenario Projections" },
+            { tab: "opportunities", icon: <Sparkles className="w-4 h-4" />, label: "Opportunity Finder" },
+            { tab: "planner", icon: <Calendar className="w-4 h-4" />, label: "Maintenance Planner" },
+            { tab: "timeline", icon: <Activity className="w-4 h-4" />, label: "Incident Timeline" },
+            { tab: "architecture", icon: <Cpu className="w-4 h-4" />, label: "Deployment & Innovation" },
+          ].map(({ tab, icon, label }) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              title={!sidebarOpen ? label : undefined}
+              className={`w-full flex items-center ${sidebarOpen ? 'gap-3 px-4 py-3' : 'justify-center p-3'} rounded-lg text-sm transition ${activeTab === tab ? "bg-emerald-600/10 text-emerald-400 font-medium" : "text-slate-400 hover:text-white hover:bg-slate-800/50"}`}
+            >
+              {icon}
+              {sidebarOpen && <span>{label}</span>}
+            </button>
+          ))}
+        </nav>
+
         {/* Failure Simulation Lab Block in Sidebar */}
-        <div className="p-4 m-4 rounded-xl bg-slate-900/60 border border-slate-800 glass-panel-hover">
+        <div className={`${sidebarOpen ? 'p-4 m-4' : 'p-2 m-2'} rounded-xl bg-slate-900/60 border border-slate-800 glass-panel-hover`}>
           <button
-            onClick={() => setSimLabOpen(prev => !prev)}
-            className="flex items-center justify-between w-full text-xs font-semibold text-rose-400 font-display"
+            onClick={() => { if (!sidebarOpen) { setSidebarOpen(true); setSimLabOpen(true); } else setSimLabOpen(prev => !prev); }}
+            className={`flex items-center ${sidebarOpen ? 'justify-between w-full' : 'justify-center w-full'} text-xs font-semibold text-rose-400 font-display`}
+            title={!sidebarOpen ? "Failure Simulation Lab" : undefined}
           >
-            <span className="flex items-center gap-1.5">
+            <span className={`flex items-center ${sidebarOpen ? 'gap-1.5' : ''}`}>
               <ShieldAlert className="w-4 h-4" />
-              FAILURE SIMULATION LAB
+              {sidebarOpen && "FAILURE SIMULATION LAB"}
             </span>
-            <span className={`transition-transform duration-200 text-slate-500 ${simLabOpen ? 'rotate-180' : ''}`}>
-              ▾
-            </span>
+            {sidebarOpen && (
+              <span className={`transition-transform duration-200 text-slate-500 ${simLabOpen ? 'rotate-180' : ''}`}>▾</span>
+            )}
           </button>
 
-          {simLabOpen && (
+          {sidebarOpen && simLabOpen && (
             <div className="space-y-2 text-xs mt-3 pt-3 border-t border-slate-800">
               <div>
                 <label className="text-slate-400 block mb-1">Target Asset</label>
                 <select
                   value={anomalyMachine}
-                  onChange={(e) => {
-                    setAnomalyMachine(e.target.value);
-                    setSelectedMachine(e.target.value);
-                  }}
+                  onChange={(e) => { setAnomalyMachine(e.target.value); setSelectedMachine(e.target.value); }}
                   className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1 text-slate-200 outline-none"
                 >
                   {Object.entries(machineNamesMap).map(([mid, name]) => (
@@ -1073,7 +1050,6 @@ export default function App() {
                   ))}
                 </select>
               </div>
-
               <div>
                 <label className="text-slate-400 block mb-1">Anomaly Type</label>
                 <select
@@ -1086,21 +1062,12 @@ export default function App() {
                   <option value="tension_stress">Belt Tension Stress</option>
                 </select>
               </div>
-
               <div className="flex gap-2 pt-1">
-                <button
-                  onClick={injectAnomaly}
-                  className="flex-1 bg-amber-600/80 hover:bg-amber-600 active:scale-95 text-white font-medium py-1.5 px-2.5 rounded flex items-center justify-center gap-1 transition text-[11px]"
-                >
-                  <Play className="w-3 h-3 fill-white" />
-                  <span>Inject Fault</span>
+                <button onClick={injectAnomaly} className="flex-1 bg-amber-600/80 hover:bg-amber-600 active:scale-95 text-white font-medium py-1.5 px-2.5 rounded flex items-center justify-center gap-1 transition text-[11px]">
+                  <Play className="w-3 h-3 fill-white" /><span>Inject Fault</span>
                 </button>
-                <button
-                  onClick={resetAllMachines}
-                  className="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 font-medium py-1.5 px-2.5 rounded flex items-center justify-center gap-1 transition text-[11px]"
-                >
-                  <RefreshCw className="w-3 h-3" />
-                  <span>Reset Twin</span>
+                <button onClick={resetAllMachines} className="flex-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 font-medium py-1.5 px-2.5 rounded flex items-center justify-center gap-1 transition text-[11px]">
+                  <RefreshCw className="w-3 h-3" /><span>Reset Twin</span>
                 </button>
               </div>
             </div>
