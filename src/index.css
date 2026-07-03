@@ -22,20 +22,17 @@ body {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Glow status borders and background glow effects */
+/* Clean status borders for enterprise UI (no neon glows) */
 .glow-emerald {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
 }
 
 .glow-amber {
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border: 1px solid rgba(245, 158, 11, 0.25) !important;
 }
 
 .glow-rose {
-  box-shadow: 0 0 25px rgba(244, 63, 94, 0.18);
-  border: 1px solid rgba(244, 63, 94, 0.4) !important;
+  border: 1px solid rgba(244, 63, 94, 0.25) !important;
 }
 
 /* Background pulse for critical machine widgets */
@@ -112,33 +109,29 @@ body {
 @keyframes pulse-highlight {
   0%, 100% {
     border-color: rgba(16, 185, 129, 0.3) !important;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
   }
   50% {
-    border-color: rgba(16, 185, 129, 0.9) !important;
-    box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+    border-color: rgba(16, 185, 129, 0.7) !important;
   }
 }
 
 .demo-highlight-ring {
   animation: pulse-highlight 2s infinite ease-in-out;
-  border-width: 2.5px !important;
+  border-width: 2px !important;
 }
 
 @keyframes pulse-highlight-danger {
   0%, 100% {
     border-color: rgba(244, 63, 94, 0.3) !important;
-    box-shadow: 0 0 10px rgba(244, 63, 94, 0.1);
   }
   50% {
-    border-color: rgba(244, 63, 94, 0.9) !important;
-    box-shadow: 0 0 25px rgba(244, 63, 94, 0.4);
+    border-color: rgba(244, 63, 94, 0.7) !important;
   }
 }
 
 .demo-highlight-danger {
   animation: pulse-highlight-danger 2s infinite ease-in-out;
-  border-width: 2.5px !important;
+  border-width: 2px !important;
 }
 
 /* Card hover elevation micro-interaction */

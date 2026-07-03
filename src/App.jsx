@@ -177,11 +177,11 @@ export default function App() {
           y={cy - 40} 
           width="100" 
           height="80" 
-          rx="12" 
+          rx="10" 
           fill="#060913" 
-          stroke={isSelected ? "#10b981" : (status !== "healthy" ? strokeColor : "#1e293b")} 
-          strokeWidth={isSelected || status !== "healthy" ? 2 : 1.5} 
-          className={`transition-all duration-300 group-hover:stroke-slate-500 ${status !== "healthy" ? "flow-active" : ""}`}
+          stroke={strokeColor} 
+          strokeWidth={isSelected ? 2.5 : 1} 
+          className="transition-all duration-300"
         />
         
         {/* Health % Indicator pill */}
@@ -206,10 +206,9 @@ export default function App() {
           cx={cx} 
           cy={cy} 
           r="20" 
-          fill="rgba(13, 15, 30, 0.9)" 
+          fill="#0a0e17" 
           stroke={strokeColor} 
-          strokeWidth="2" 
-          className={glowClass}
+          strokeWidth="1.5" 
         />
         
         <text 
@@ -1112,15 +1111,15 @@ export default function App() {
   };
 
   const getMachineColor = (status) => {
-    if (status === "critical") return "bg-rose-500/20 text-rose-400 border-rose-500/50 glow-rose";
-    if (status === "warning") return "bg-amber-500/20 text-amber-400 border-amber-500/50 glow-amber";
-    return "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 glow-emerald";
+    if (status === "critical") return "bg-[#0c101b] border-rose-900/30 text-rose-400";
+    if (status === "warning") return "bg-[#0c101b] border-amber-900/30 text-amber-400";
+    return "bg-[#0c101b] border-slate-800/80 text-emerald-400";
   };
 
   const getStatusBadge = (status) => {
-    if (status === "critical") return <span className="bg-rose-500/20 text-rose-400 border border-rose-500/40 font-semibold px-2 py-0.5 rounded text-xs tracking-wider pulse-critical">CRITICAL</span>;
-    if (status === "warning") return <span className="bg-amber-500/20 text-amber-400 border border-amber-500/40 font-semibold px-2 py-0.5 rounded text-xs tracking-wider">WARNING</span>;
-    return <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-semibold px-2 py-0.5 rounded text-xs tracking-wider">HEALTHY</span>;
+    if (status === "critical") return <span className="bg-rose-950/30 text-rose-400 border border-rose-900/30 font-semibold px-2 py-0.5 rounded text-xs tracking-wider">CRITICAL</span>;
+    if (status === "warning") return <span className="bg-amber-950/30 text-amber-400 border border-amber-900/30 font-semibold px-2 py-0.5 rounded text-xs tracking-wider">WARNING</span>;
+    return <span className="bg-emerald-950/30 text-emerald-400 border border-emerald-900/30 font-semibold px-2 py-0.5 rounded text-xs tracking-wider">HEALTHY</span>;
   };
 
   const machineNamesMap = {
@@ -1223,10 +1222,10 @@ export default function App() {
         <div className="mx-3 mb-3 rounded-xl bg-slate-900/60 border border-slate-800">
           <button
             onClick={() => setSimLabOpen(prev => !prev)}
-            className="w-full flex items-center justify-between px-3 py-3 text-xs font-semibold text-indigo-400 font-display"
+            className="w-full flex items-center justify-between px-3 py-3 text-xs font-semibold text-slate-300 font-display"
           >
             <span className="flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4 shrink-0" />
+              <ShieldAlert className="w-4 h-4 shrink-0 text-slate-400" />
               <span className="whitespace-nowrap">AI SCENARIO SIMULATOR</span>
             </span>
             <span className={`transition-transform duration-200 text-white text-base leading-none ${simLabOpen ? 'rotate-180' : ''}`}>▾</span>
@@ -1259,10 +1258,10 @@ export default function App() {
                 </select>
               </div>
               <div className="flex gap-2 pt-1">
-                <button onClick={injectAnomaly} className="flex-1 bg-amber-600/80 hover:bg-amber-600 active:scale-95 text-white font-medium py-1.5 rounded flex items-center justify-center gap-1 transition text-[11px]">
+                <button onClick={injectAnomaly} className="flex-1 bg-rose-700 hover:bg-rose-600 active:scale-95 text-white font-medium py-1.5 rounded flex items-center justify-center gap-1 transition text-[11px]">
                   <Play className="w-3 h-3 fill-white" /><span>Simulate Failure</span>
                 </button>
-                <button onClick={resetAllMachines} className="flex-1 bg-slate-700 hover:bg-slate-600 active:scale-95 text-white border border-slate-600 font-medium py-1.5 rounded flex items-center justify-center gap-1 transition text-[11px]">
+                <button onClick={resetAllMachines} className="flex-1 bg-emerald-700/60 hover:bg-emerald-600 active:scale-95 text-white border border-emerald-600/40 font-medium py-1.5 rounded flex items-center justify-center gap-1 transition text-[11px]">
                   <RefreshCw className="w-3 h-3" /><span>Restore Factory</span>
                 </button>
               </div>
@@ -1306,7 +1305,7 @@ export default function App() {
             
             <button 
               onClick={() => setChatOpen(!chatOpen)}
-              className="bg-emerald-600 hover:bg-emerald-500 active:scale-95 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition glow-emerald"
+              className="bg-emerald-600 hover:bg-emerald-500 active:scale-95 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white flex items-center gap-1.5 transition"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>AI Copilot</span>
@@ -1333,23 +1332,19 @@ export default function App() {
                 </div>
                 {/* Executive AI Summary Ribbon */}
                 {(() => {
-                  const topM    = topRiskEntry;
-                  const topAdv  = advisorData[topM.mid] || advisorData["M3"];
-                  const topName = machineNamesMap[topM.mid] || topM.mid;
-                  const topRec  = telemetry[topM.mid]?.ai_prediction?.recommendation || "Continue Normal Operations";
                   const isCrit  = topM.status === "critical";
                   const isWarn  = topM.status === "warning";
-                  const bg      = isCrit ? "bg-rose-950/50 border-rose-500/25"    : isWarn ? "bg-amber-950/40 border-amber-500/20"    : "bg-emerald-950/30 border-emerald-500/15";
+                  const borderClass = isCrit ? "border-rose-900/40" : isWarn ? "border-amber-900/40" : "border-slate-800";
                   const accent  = isCrit ? "text-rose-400"   : isWarn ? "text-amber-400"   : "text-emerald-400";
                   const conf    = isCrit ? "94%"  : isWarn ? "91%"  : "98%";
                   return (
-                    <div className={`border rounded-xl px-4 py-2.5 ${bg}`}>
+                    <div className={`border rounded-xl px-4 py-2.5 bg-[#0c101b] ${borderClass}`}>
                       <div className="flex items-center gap-4 flex-wrap">
                         <div className="flex items-center gap-1.5 shrink-0">
-                          <Sparkles className={`w-3 h-3 ${accent}`} />
-                          <span className={`text-[9px] font-bold uppercase tracking-widest font-mono ${accent}`}>AI Executive Summary</span>
+                          <Sparkles className="w-3 h-3 text-slate-500" />
+                          <span className="text-[9px] font-bold uppercase tracking-widest font-mono text-slate-400">AI Executive Summary</span>
                         </div>
-                        <div className="h-3 w-px bg-slate-700 shrink-0" />
+                        <div className="h-3 w-px bg-slate-800 shrink-0" />
                         <div className="flex items-center gap-5 flex-1 min-w-0 flex-wrap">
                           <div>
                             <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Priority Asset</span>
@@ -1357,7 +1352,7 @@ export default function App() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Recommended Action</span>
-                            <span className="text-[11px] font-semibold text-white truncate block">{topRec}</span>
+                            <span className="text-[11px] font-semibold text-slate-300 truncate block">{topRec}</span>
                           </div>
                           <div className="shrink-0">
                             <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Net Business Gain</span>
@@ -1365,17 +1360,17 @@ export default function App() {
                           </div>
                           <div className="shrink-0">
                             <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Loss if Ignored</span>
-                            <span className="text-[11px] font-bold text-rose-400">₹{(topAdv.potentialLoss / 100000).toFixed(2)} Lakh</span>
+                            <span className="text-[11px] font-bold text-slate-400">₹{(topAdv.potentialLoss / 100000).toFixed(2)} Lakh</span>
                           </div>
                           <div className="shrink-0">
                             <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Decision Confidence</span>
-                            <span className={`text-[11px] font-bold ${accent}`}>{conf}</span>
+                            <span className="text-[11px] font-bold text-emerald-400">{conf}</span>
                           </div>
                         </div>
                         {(isCrit || isWarn) && (
                           <button
                             onClick={() => { setActiveTab("planner"); optimizeSchedule(); }}
-                            className={`shrink-0 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition active:scale-95 text-white ${isCrit ? "bg-rose-600 hover:bg-rose-500" : "bg-amber-600 hover:bg-amber-500"}`}
+                            className={`shrink-0 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition active:scale-95 text-white ${isCrit ? "bg-rose-700 hover:bg-rose-600" : "bg-amber-600 hover:bg-amber-500"}`}
                           >
                             Approve Plan
                           </button>
@@ -1386,41 +1381,41 @@ export default function App() {
                 })()}
 
                 {/* AI Value Generated — Business Value Through AI Decisions */}
-                <div className="glass-panel border border-emerald-900/30 rounded-xl p-3 relative overflow-hidden bg-gradient-to-r from-emerald-950/20 to-slate-900/60 card-hover-lift">
-                  <div className="absolute top-0 right-0 p-2 opacity-10">
-                    <TrendingUp className="w-16 h-16 text-emerald-400" />
+                <div className="glass-panel border border-slate-800 rounded-xl p-3 relative overflow-hidden bg-[#0c101b]/80 card-hover-lift">
+                  <div className="absolute top-0 right-0 p-2 opacity-5">
+                    <TrendingUp className="w-16 h-16 text-slate-400" />
                   </div>
                   <div className="flex items-center gap-6 relative z-10">
                     <div className="w-48 shrink-0">
-                      <h3 className="text-xs uppercase tracking-widest text-emerald-400 font-bold flex items-center gap-1.5 mb-0.5">
-                        <Sparkles className="w-3.5 h-3.5" /> AI Value Generated
+                      <h3 className="text-xs uppercase tracking-widest text-slate-300 font-bold flex items-center gap-1.5 mb-0.5">
+                        <Sparkles className="w-3.5 h-3.5 text-slate-500" /> AI Value Generated
                       </h3>
                       <p className="text-[9px] text-slate-500 leading-tight">Business Value Generated Through AI Decisions</p>
                     </div>
                     <div className="flex-1 grid grid-cols-4 gap-4">
                       <div>
-                        <span className="text-[10px] text-slate-400 block mb-0.5 uppercase tracking-wider">Estimated Savings</span>
+                        <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Estimated Savings</span>
                         <span className="text-xl font-display font-bold text-white tracking-tight flex items-baseline gap-0.5">
-                          <span className="text-emerald-400 text-sm">&#x20B9;</span>
+                          <span className="text-emerald-400 text-sm font-semibold">&#x20B9;</span>
                           <span className="animate-[countUp_2s_ease-out_forwards] inline-block">{financials.cost_saved.toLocaleString()}</span>
                         </span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-slate-400 block mb-0.5 uppercase tracking-wider">Downtime Prevented</span>
-                        <span className="text-xl font-display font-bold text-white tracking-tight">{financials.downtime_prevented} <span className="text-[10px] font-normal text-slate-400">Hrs</span></span>
+                        <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Downtime Prevented</span>
+                        <span className="text-xl font-display font-bold text-white tracking-tight">{financials.downtime_prevented} <span className="text-[10px] font-normal text-slate-500">Hrs</span></span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-slate-400 block mb-0.5 uppercase tracking-wider">Energy Saved</span>
-                        <span className="text-xl font-display font-bold text-white tracking-tight">{financials.energy_saved} <span className="text-[10px] font-normal text-slate-400">kWh</span></span>
+                        <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Energy Saved</span>
+                        <span className="text-xl font-display font-bold text-white tracking-tight">{financials.energy_saved} <span className="text-[10px] font-normal text-slate-500">kWh</span></span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-slate-400 block mb-0.5 uppercase tracking-wider">Failures Prevented</span>
+                        <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Failures Prevented</span>
                         <span className="text-xl font-display font-bold text-emerald-400 tracking-tight">{failuresPrevented}</span>
                       </div>
                     </div>
-                    <div className="shrink-0 flex items-center gap-1.5 bg-slate-900/60 px-2.5 py-1.5 rounded-lg border border-slate-800">
+                    <div className="shrink-0 flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-2.5 py-1.5 rounded-lg">
                       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                      <span className="text-[9px] font-mono text-slate-400">Last Updated: <span className="text-emerald-400 font-semibold">Real-time</span></span>
+                      <span className="text-[9px] font-mono text-slate-400">Last Updated: <span className="text-slate-300 font-semibold">Real-time</span></span>
                     </div>
                   </div>
                 </div>
@@ -1436,19 +1431,19 @@ export default function App() {
                   <div className="glass-panel rounded-2xl p-6 border border-slate-800/60 relative overflow-hidden flex flex-col justify-between flex-1 min-h-[460px]">
                     {/* Live System Indicator Chips */}
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="flex items-center gap-1.5 bg-emerald-950/40 border border-emerald-500/20 rounded-full px-2.5 py-1">
-                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-[9px] font-mono font-semibold text-emerald-400 uppercase tracking-wider">Edge AI · ACTIVE</span>
+                      <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800/80 rounded-full px-2.5 py-1">
+                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                        <span className="text-[9px] font-mono font-semibold text-white uppercase tracking-wider">Edge AI · ACTIVE</span>
                       </div>
-                      <div className={`flex items-center gap-1.5 border rounded-full px-2.5 py-1 status-transition ${wsConnected ? 'bg-emerald-950/30 border-emerald-500/20' : 'bg-amber-950/30 border-amber-500/20'}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full animate-pulse status-transition ${wsConnected ? 'bg-emerald-500' : 'bg-amber-500'}`} />
-                        <span className={`text-[9px] font-mono font-semibold uppercase tracking-wider status-transition ${wsConnected ? 'text-emerald-400' : 'text-amber-400'}`}>
+                      <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800/80 rounded-full px-2.5 py-1">
+                        <span className={`w-1.5 h-1.5 rounded-full ${wsConnected ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
+                        <span className="text-[9px] font-mono font-semibold text-white uppercase tracking-wider">
                           WebSocket · {wsConnected ? 'CONNECTED' : 'RECONNECTING'}
                         </span>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-indigo-950/30 border border-indigo-500/20 rounded-full px-2.5 py-1">
-                        <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse" />
-                        <span className="text-[9px] font-mono font-semibold text-indigo-400 uppercase tracking-wider">Decision Engine · RUNNING</span>
+                      <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-800/80 rounded-full px-2.5 py-1">
+                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                        <span className="text-[9px] font-mono font-semibold text-white uppercase tracking-wider">Decision Engine · RUNNING</span>
                       </div>
                     </div>
                     <div className="flex justify-between items-center mb-4">
@@ -1561,14 +1556,14 @@ export default function App() {
                         </div>
 
                         {/* Option C */}
-                        <div className="p-3 bg-indigo-950/10 rounded-xl border border-indigo-500/30 flex flex-col justify-between min-h-[140px] text-xs relative overflow-hidden">
-                          <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 rounded-full translate-x-6 -translate-y-6"></div>
+                        <div className="p-3 bg-teal-950/10 rounded-xl border border-teal-500/20 flex flex-col justify-between min-h-[140px] text-xs relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-16 h-16 bg-teal-500/5 rounded-full translate-x-6 -translate-y-6"></div>
                           <div>
                             <div className="flex justify-between items-center mb-1">
                               <span className="font-bold text-slate-200">OPTION C</span>
-                              <span className="text-[9px] bg-emerald-950/40 px-1.5 py-0.5 rounded text-emerald-400 font-bold tracking-wider animate-pulse flex items-center gap-0.5">★ RECOMMENDED</span>
+                              <span className="text-[9px] bg-teal-950/40 px-1.5 py-0.5 rounded text-teal-400 font-bold tracking-wider flex items-center gap-0.5">★ RECOMMENDED</span>
                             </div>
-                            <h5 className="font-semibold text-indigo-300 text-sm mb-2">Shift Production</h5>
+                            <h5 className="font-semibold text-teal-300 text-sm mb-2">Shift Production</h5>
                             <p className="text-[11px] text-slate-400 leading-relaxed mb-3">Reroute active cycles to Hydraulic Press; repair joint during night shift.</p>
                           </div>
                           <div className="space-y-1 font-mono text-[10px] border-t border-slate-900 pt-2 text-slate-300">
@@ -1613,10 +1608,10 @@ export default function App() {
                     </button>
                   </div>
                 ) : (
-                  <div className="bg-[#0a1528] border border-indigo-500/30 rounded-xl px-5 py-2 flex items-center justify-between text-xs">
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl px-5 py-2 flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
-                      <span className="font-semibold text-indigo-300">WALKTHROUGH ACTIVE —</span>
+                      <Sparkles className="w-4 h-4 text-slate-500" />
+                      <span className="font-semibold text-slate-300">WALKTHROUGH ACTIVE —</span>
                       <span className="text-slate-300">
                         {walkthroughStep === 1 && "1. Baseline Operations"}
                         {walkthroughStep === 2 && "2. Anomaly Detected"}
@@ -1627,12 +1622,12 @@ export default function App() {
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      {walkthroughStep === 1 && <button onClick={() => { injectAnomalyLocal("M3", "vibration"); setWalkthroughStep(2); }} className="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Inject Fault</button>}
-                      {walkthroughStep === 2 && <button onClick={() => { setSelectedMachine("M3"); setWalkthroughStep(3); }} className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">View M3</button>}
-                      {walkthroughStep === 3 && <button onClick={() => setWalkthroughStep(4)} className="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Compare</button>}
-                      {walkthroughStep === 4 && <button onClick={() => approveRecommendation("M3")} className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase glow-emerald">Approve</button>}
+                      {walkthroughStep === 1 && <button onClick={() => { injectAnomalyLocal("M3", "vibration"); setWalkthroughStep(2); }} className="bg-rose-700 hover:bg-rose-600 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Inject Fault</button>}
+                      {walkthroughStep === 2 && <button onClick={() => { setSelectedMachine("M3"); setWalkthroughStep(3); }} className="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">View M3</button>}
+                      {walkthroughStep === 3 && <button onClick={() => setWalkthroughStep(4)} className="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Compare</button>}
+                      {walkthroughStep === 4 && <button onClick={() => approveRecommendation("M3")} className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Approve</button>}
                       {walkthroughStep === 5 && <button onClick={() => { completeTaskLocal(schedule.length > 0 ? schedule[0].id : "slot_m3"); setWalkthroughStep(6); }} className="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Complete</button>}
-                      {walkthroughStep === 6 && <button onClick={() => resetAllLocal()} className="bg-rose-600 hover:bg-rose-500 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Reset</button>}
+                      {walkthroughStep === 6 && <button onClick={() => resetAllLocal()} className="bg-rose-700 hover:bg-rose-600 text-white px-3 py-1 rounded font-bold transition active:scale-95 text-[10px] uppercase">Reset</button>}
                       <button onClick={() => resetAllLocal()} className="text-slate-400 hover:text-rose-400 text-[10px] font-bold uppercase transition">Quit</button>
                     </div>
                   </div>
@@ -1734,18 +1729,18 @@ export default function App() {
                   </div>
 
                   {/* Proactive AI Business Advisor */}
-                  <div className="glass-panel rounded-2xl p-5 border border-indigo-900/30 bg-gradient-to-br from-indigo-950/20 to-slate-900/60 flex flex-col justify-between">
+                  <div className="glass-panel rounded-2xl p-5 border border-slate-800 bg-[#0c101b]/80 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-2 mb-3">
-                        <Sparkles className="w-4 h-4 text-indigo-400" />
-                        <h4 className="font-display font-bold text-sm text-indigo-200">AI Business Advisor</h4>
+                        <Sparkles className="w-4 h-4 text-slate-500" />
+                        <h4 className="font-display font-bold text-sm text-slate-200">AI Business Advisor</h4>
                       </div>
                       <p className="text-xs text-slate-300 leading-relaxed">
                         <strong className="text-white block mb-1">Today's Biggest Opportunity: Energy Optimization</strong>
-                        Reducing <span className="text-indigo-300 font-mono">Conveyor M5</span> load by 8% during non-peak hours could save approximately <strong className="text-emerald-400">₹48,000 per month</strong> without affecting production volume.
+                        Reducing <span className="text-slate-300 font-mono">Conveyor M5</span> load by 8% during non-peak hours could save approximately <strong className="text-emerald-400">₹48,000 per month</strong> without affecting production volume.
                       </p>
                     </div>
-                    <button onClick={() => sendCopilotQuery("Show energy opportunities")} className="mt-4 text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center justify-end gap-1 w-full transition">
+                    <button onClick={() => sendCopilotQuery("Show energy opportunities")} className="mt-4 text-xs font-semibold text-slate-400 hover:text-white flex items-center justify-end gap-1 w-full transition">
                       Simulate Scenario <ChevronRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
@@ -1890,13 +1885,12 @@ export default function App() {
 
                       {/* Decision Quality Score Metric Card */}
                       <div className="glass-panel rounded-2xl p-5 border border-slate-800 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full translate-x-8 -translate-y-8"></div>
                         <div className="flex justify-between items-center mb-1">
                           <div>
                             <h4 className="font-display font-bold text-sm text-slate-200">Decision Quality Score</h4>
                             <p className="text-[9px] text-slate-500 font-mono mt-0.5">Weighted metrics score</p>
                           </div>
-                          <span className="bg-indigo-500/10 text-indigo-400 px-2 py-1 rounded text-base font-mono font-bold border border-indigo-500/20">{decisionQualityScore}%</span>
+                          <span className="bg-slate-900 text-slate-200 px-2 py-1 rounded text-base font-mono font-bold border border-slate-800">{decisionQualityScore}%</span>
                         </div>
                         <p className="text-[10px] text-slate-400 leading-relaxed border-t border-slate-850 pt-2 mt-2">
                           Evaluates operational decision safety, cost recovery ratio, energy impact, downtime offset, and model classification confidence.
@@ -1908,7 +1902,7 @@ export default function App() {
                         <h4 className="font-display font-bold text-sm text-white mb-3 pb-2 border-b border-slate-850">🛡️ AI Explainability Engineering Report</h4>
                         
                         <div className="space-y-4">
-                          <span className="text-[10px] font-semibold tracking-wider text-indigo-300 uppercase font-mono block">Why was {selectedMachine} selected?</span>
+                          <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase font-mono block">Why was {selectedMachine} selected?</span>
                           
                           <div className="grid grid-cols-2 gap-3 text-xs font-mono">
                             <div className="bg-slate-950/40 p-2.5 rounded-lg border border-slate-850">
@@ -2028,7 +2022,7 @@ export default function App() {
                 </div>
 
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-                  <div className="w-12 h-12 bg-indigo-500/10 rounded-xl border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
+                  <div className="w-12 h-12 bg-slate-800/40 rounded-xl border border-slate-700/30 flex items-center justify-center text-slate-300 shrink-0">
                     <Clock className="w-6 h-6" />
                   </div>
                   <div>
@@ -2038,7 +2032,7 @@ export default function App() {
                 </div>
 
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-                  <div className="w-12 h-12 bg-amber-500/10 rounded-xl border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                  <div className="w-12 h-12 bg-slate-800/40 rounded-xl border border-slate-700/30 flex items-center justify-center text-slate-300 shrink-0">
                     <Zap className="w-6 h-6" />
                   </div>
                   <div>
@@ -2048,7 +2042,7 @@ export default function App() {
                 </div>
 
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-                  <div className="w-12 h-12 bg-purple-500/10 rounded-xl border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+                  <div className="w-12 h-12 bg-slate-800/40 rounded-xl border border-slate-700/30 flex items-center justify-center text-slate-300 shrink-0">
                     <Activity className="w-6 h-6" />
                   </div>
                   <div>
@@ -2134,7 +2128,7 @@ export default function App() {
                   <div className="pt-4 border-t border-slate-800 mt-4">
                     <button 
                       onClick={() => setActiveTab("planner")}
-                      className="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white py-2 rounded-lg font-semibold text-xs transition glow-emerald"
+                      className="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white py-2 rounded-lg font-semibold text-xs transition"
                     >
                       Optimize All Maintenance Schedules
                     </button>
@@ -2152,14 +2146,14 @@ export default function App() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">Decision Quality Score</span>
-                    <span className="bg-indigo-500/10 text-indigo-400 px-2.5 py-1 rounded text-sm font-mono font-bold border border-indigo-500/20">{decisionQualityScore}%</span>
+                    <span className="bg-slate-900 text-slate-200 px-2.5 py-1 rounded text-sm font-mono font-bold border border-slate-800">{decisionQualityScore}%</span>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-6">
                   {[
                     { label: "Small Factory", subtitle: "5–10 machines", machines: 8, decisions: 24, savings: "₹48 Lakh", savingsNum: 4800000, color: "text-slate-200", border: "border-slate-700", bg: "bg-slate-900/40" },
                     { label: "Medium Factory", subtitle: "15–25 machines", machines: 20, decisions: 60, savings: "₹2.4 Crore", savingsNum: 24000000, color: "text-emerald-400", border: "border-emerald-700/40", bg: "bg-emerald-950/10" },
-                    { label: "Large Enterprise", subtitle: "50+ machines", machines: 50, decisions: 150, savings: "₹8.1 Crore", savingsNum: 81000000, color: "text-indigo-400", border: "border-indigo-700/40", bg: "bg-indigo-950/10" },
+                    { label: "Large Enterprise", subtitle: "50+ machines", machines: 50, decisions: 150, savings: "₹8.1 Crore", savingsNum: 81000000, color: "text-sky-400", border: "border-slate-700", bg: "bg-slate-900/40" },
                   ].map(tier => (
                     <div key={tier.label} className={`rounded-2xl border p-5 flex flex-col justify-between ${tier.bg} ${tier.border}`}>
                       <div>
@@ -2474,7 +2468,7 @@ export default function App() {
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                      <span className="bg-indigo-500/10 text-indigo-400 font-semibold px-2 py-0.5 rounded tracking-wide font-mono uppercase text-[10px]">LOAD BALANCING</span>
+                      <span className="bg-slate-900 text-slate-300 font-semibold px-2 py-0.5 rounded tracking-wide font-mono border border-slate-800 uppercase text-[10px]">LOAD BALANCING</span>
                       <span className="text-slate-400 font-mono">Asset M1 (CNC Mill)</span>
                     </div>
                     <h3 className="font-bold text-sm text-white font-display">Overloaded Spindle Stress Buffer</h3>
@@ -2520,7 +2514,7 @@ export default function App() {
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                      <span className="bg-purple-500/10 text-purple-400 font-semibold px-2 py-0.5 rounded tracking-wide font-mono uppercase text-[10px]">STANDBY POWER DRAW</span>
+                      <span className="bg-slate-900 text-slate-300 font-semibold px-2 py-0.5 rounded tracking-wide font-mono border border-slate-800 uppercase text-[10px]">STANDBY POWER DRAW</span>
                       <span className="text-slate-400 font-mono">Asset M4 (Air Compressor)</span>
                     </div>
                     <h3 className="font-bold text-sm text-white font-display">Standby Energy Sink Recovery</h3>
@@ -2955,11 +2949,11 @@ export default function App() {
                       {vendor:"Siemens PLC",category:"Control Systems",color:"text-sky-400"},
                       {vendor:"Rockwell PLC",category:"Control Systems",color:"text-sky-400"},
                       {vendor:"OPC-UA / MQTT",category:"Protocol Layer",color:"text-amber-400"},
-                      {vendor:"Azure IoT Edge",category:"Cloud Edge",color:"text-indigo-400"},
+                      {vendor:"Azure IoT Edge",category:"Cloud Edge",color:"text-sky-400"},
                       {vendor:"NVIDIA Jetson",category:"Edge AI Hardware",color:"text-emerald-400"},
                       {vendor:"SAP PM",category:"ERP / Work Orders",color:"text-rose-400"},
-                      {vendor:"IBM Maximo",category:"Asset Management",color:"text-purple-400"},
-                      {vendor:"Modbus RTU",category:"Legacy Protocol",color:"text-slate-300"},
+                      {vendor:"IBM Maximo",category:"Asset Management",color:"text-slate-400"},
+                      {vendor:"Modbus RTU",category:"Legacy Protocol",color:"text-slate-350"},
                     ].map(item => (
                       <div key={item.vendor} className="bg-slate-900/50 p-2.5 rounded-lg border border-slate-850 flex flex-col gap-0.5">
                         <span className={`font-bold font-mono text-[11px] ${item.color}`}>{item.vendor}</span>
@@ -2968,7 +2962,7 @@ export default function App() {
                     ))}
                   </div>
                 </div>
-
+ 
                 {/* Scalability Roadmap + TRL Maturity */}
                 <div className="space-y-5">
                   {/* TRL 5 → TRL 8 Maturity framing */}
@@ -2981,7 +2975,7 @@ export default function App() {
                       </div>
                       <div className="flex-1 mx-4 h-1.5 bg-slate-800 rounded-full relative">
                         <div className="absolute inset-y-0 left-0 w-[56%] bg-gradient-to-r from-amber-500 to-emerald-400 rounded-full"/>
-                        <div className="absolute top-[-6px] left-[56%] w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-950 shadow-[0_0_8px_rgba(16,185,129,0.6)]"/>
+                        <div className="absolute top-[-6px] left-[56%] w-3 h-3 rounded-full bg-emerald-400 border-2 border-slate-950"/>
                       </div>
                       <div className="text-center">
                         <span className="text-2xl font-extrabold text-emerald-400 font-display">TRL 8</span>
@@ -2992,7 +2986,7 @@ export default function App() {
                       Validated in controlled simulation (TRL 5). Production integration targets TRL 8 with real PLC data within 6–12 months.
                     </p>
                   </div>
-
+ 
                   {/* Scalability Roadmap */}
                   <div className="glass-panel border border-slate-800 rounded-2xl p-5">
                     <h4 className="font-bold text-sm font-display text-white mb-3">Scalability Roadmap</h4>
@@ -3000,8 +2994,8 @@ export default function App() {
                       {[
                         {phase:"Phase 1",label:"Single Factory",status:"NOW",color:"text-emerald-400",dot:"bg-emerald-500"},
                         {phase:"Phase 2",label:"Multiple Production Lines",status:"Q3 2025",color:"text-amber-400",dot:"bg-amber-500"},
-                        {phase:"Phase 3",label:"Multiple Plant Sites",status:"Q1 2026",color:"text-indigo-400",dot:"bg-indigo-500"},
-                        {phase:"Phase 4",label:"Global Manufacturing Network",status:"2027+",color:"text-purple-400",dot:"bg-purple-500"},
+                        {phase:"Phase 3",label:"Multiple Plant Sites",status:"Q1 2026",color:"text-sky-400",dot:"bg-sky-500"},
+                        {phase:"Phase 4",label:"Global Manufacturing Network",status:"2027+",color:"text-slate-400",dot:"bg-slate-500"},
                       ].map((r,i) => (
                         <div key={i} className="flex items-center gap-3">
                           <div className={`w-2 h-2 rounded-full shrink-0 ${r.dot}`}/>
