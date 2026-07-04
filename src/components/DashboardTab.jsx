@@ -59,43 +59,44 @@ export default function DashboardTab({
           const topRec = telemetry[topM.mid]?.ai_prediction?.recommendation || "Continue Normal Operations";
           const isCrit = topM.status === "critical";
           const isWarn = topM.status === "warning";
-          const borderClass = isCrit ? "border-rose-900/40" : isWarn ? "border-amber-900/40" : "border-slate-800";
+          const borderClass = isCrit ? "border-rose-900/60 status-glow-rose" : isWarn ? "border-amber-900/60 status-glow-amber" : "border-slate-800/80";
+          const bgClass = isCrit ? "bg-rose-950/15" : isWarn ? "bg-amber-950/15" : "bg-[#090d16]/80";
           const accent = isCrit ? "text-rose-400" : isWarn ? "text-amber-400" : "text-emerald-400";
           const conf = isCrit ? "94%" : isWarn ? "91%" : "98%";
           return (
-            <div className={`border rounded-xl px-4 py-2.5 bg-[#0c101b] ${borderClass}`}>
-              <div className="flex items-center gap-4 flex-wrap">
+            <div className={`border rounded-xl px-4 py-3 transition-all duration-300 ${bgClass} ${borderClass}`}>
+              <div className="flex items-center justify-between gap-4 flex-wrap">
                 <div className="flex items-center gap-1.5 shrink-0">
-                  <Sparkles className="w-3 h-3 text-slate-500" />
-                  <span className="text-[9px] font-bold uppercase tracking-widest font-mono text-slate-400">AI Executive Summary</span>
+                  <Sparkles className={`w-3.5 h-3.5 ${accent} animate-pulse`} />
+                  <span className="text-[10px] font-bold uppercase tracking-widest font-hud text-slate-300">AI Executive Summary</span>
                 </div>
                 <div className="h-3 w-px bg-slate-800 shrink-0" />
-                <div className="flex items-center gap-5 flex-1 min-w-0 flex-wrap">
+                <div className="flex items-center gap-6 flex-1 min-w-0 justify-between flex-wrap">
                   <div>
-                    <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Priority Asset</span>
-                    <span className={`text-[11px] font-bold ${accent}`}>{topName}</span>
+                    <span className="text-[8px] text-slate-500 uppercase tracking-widest block font-mono">Priority Asset</span>
+                    <span className={`text-xs font-hud font-bold ${accent}`}>{topName.toUpperCase()}</span>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Recommended Action</span>
+                  <div className="flex-1 min-w-0 max-w-[240px]">
+                    <span className="text-[8px] text-slate-500 uppercase tracking-widest block font-mono">Recommended Action</span>
                     <span className="text-[11px] font-semibold text-slate-300 truncate block">{topRec}</span>
                   </div>
                   <div>
-                    <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Net Business Gain</span>
-                    <span className="text-[11px] font-bold text-emerald-400">↑ ₹{(topAdv.netSavings / 100000).toFixed(2)} Lakh</span>
+                    <span className="text-[8px] text-slate-500 uppercase tracking-widest block font-mono">Net Gain</span>
+                    <span className="text-xs font-hud font-bold text-emerald-400">↑ ₹{(topAdv.netSavings / 100000).toFixed(2)} L</span>
                   </div>
                   <div>
-                    <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Loss if Ignored</span>
-                    <span className="text-[11px] font-bold text-slate-400">₹{(topAdv.potentialLoss / 100000).toFixed(2)} Lakh</span>
+                    <span className="text-[8px] text-slate-500 uppercase tracking-widest block font-mono">Risk Exposure</span>
+                    <span className="text-xs font-hud font-bold text-slate-400">₹{(topAdv.potentialLoss / 100000).toFixed(2)} L</span>
                   </div>
                   <div>
-                    <span className="text-[8px] text-slate-500 uppercase tracking-wider block font-mono">Decision Confidence</span>
-                    <span className="text-[11px] font-bold text-emerald-400">{conf}</span>
+                    <span className="text-[8px] text-slate-500 uppercase tracking-widest block font-mono">Confidence</span>
+                    <span className={`text-xs font-hud font-bold ${accent}`}>{conf}</span>
                   </div>
                 </div>
                 {(isCrit || isWarn) && (
                   <button
                     onClick={() => { setActiveTab("planner"); optimizeSchedule(); }}
-                    className={`shrink-0 px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider transition active:scale-95 text-white ${isCrit ? "bg-rose-700 hover:bg-rose-600" : "bg-amber-600 hover:bg-amber-500"}`}
+                    className={`shrink-0 px-3.5 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all duration-150 active-press text-white ${isCrit ? "bg-rose-600 hover:bg-rose-500" : "bg-amber-600 hover:bg-amber-500"}`}
                   >
                     Approve Plan
                   </button>
@@ -106,41 +107,41 @@ export default function DashboardTab({
         })()}
 
         {/* AI Value Generated — Business Value Through AI Decisions */}
-        <div className="glass-panel border border-slate-800 rounded-xl p-3 relative overflow-hidden bg-[#0c101b]/80 card-hover-lift">
-          <div className="absolute top-0 right-0 p-2 opacity-5">
-            <TrendingUp className="w-16 h-16 text-slate-400" />
+        <div className="glass-panel border border-slate-900/60 rounded-xl p-4 relative overflow-hidden bg-[#070b13]/85 card-hover-lift">
+          <div className="absolute top-0 right-0 p-2 opacity-[0.02]">
+            <TrendingUp className="w-24 h-24 text-slate-400" />
           </div>
           <div className="flex items-center gap-6 relative z-10">
-            <div className="w-48 shrink-0">
-              <h3 className="text-xs uppercase tracking-widest text-slate-300 font-bold flex items-center gap-1.5 mb-0.5">
-                <Sparkles className="w-3.5 h-3.5 text-slate-500" /> AI Value Generated
+            <div className="w-52 shrink-0">
+              <h3 className="text-xs uppercase tracking-widest text-slate-200 font-bold flex items-center gap-1.5 mb-1 font-hud">
+                <Sparkles className="w-4 h-4 text-emerald-400" /> AI Value Generated
               </h3>
-              <p className="text-[9px] text-slate-500 leading-tight">Business Value Generated Through AI Decisions</p>
+              <p className="text-[9px] text-slate-500 leading-normal">Operational & financial savings enabled via real-time edge twin recommendations.</p>
             </div>
             <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div>
-                <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Estimated Savings</span>
-                <span className="text-xl font-display font-bold text-white tracking-tight flex items-baseline gap-0.5">
-                  <span className="text-emerald-400 text-sm font-semibold">&#x20B9;</span>
-                  <span className="animate-[countUp_2s_ease-out_forwards] inline-block">{financials.cost_saved.toLocaleString()}</span>
+                <span className="text-[9px] text-slate-500 block mb-1 uppercase tracking-widest font-mono">Estimated Savings</span>
+                <span className="text-xl font-hud font-bold text-white tracking-wide flex items-baseline gap-0.5">
+                  <span className="text-emerald-400 text-xs font-semibold mr-0.5">₹</span>
+                  <span className="animate-[countUp_1.5s_ease-out_forwards] inline-block">{financials.cost_saved.toLocaleString()}</span>
                 </span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Downtime Prevented</span>
-                <span className="text-xl font-display font-bold text-white tracking-tight">{financials.downtime_prevented} <span className="text-[10px] font-normal text-slate-500">Hrs</span></span>
+                <span className="text-[9px] text-slate-500 block mb-1 uppercase tracking-widest font-mono">Downtime Prevented</span>
+                <span className="text-xl font-hud font-bold text-white tracking-wide">{financials.downtime_prevented} <span className="text-xs font-normal text-slate-500">HRS</span></span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Energy Saved</span>
-                <span className="text-xl font-display font-bold text-white tracking-tight">{financials.energy_saved} <span className="text-[10px] font-normal text-slate-500">kWh</span></span>
+                <span className="text-[9px] text-slate-500 block mb-1 uppercase tracking-widest font-mono">Energy Saved</span>
+                <span className="text-xl font-hud font-bold text-white tracking-wide">{financials.energy_saved} <span className="text-xs font-normal text-slate-500">KWH</span></span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Failures Prevented</span>
-                <span className="text-xl font-display font-bold text-emerald-400 tracking-tight">{failuresPrevented}</span>
+                <span className="text-[9px] text-slate-500 block mb-1 uppercase tracking-widest font-mono">Failures Prevented</span>
+                <span className="text-xl font-hud font-bold text-emerald-400 tracking-wide">{failuresPrevented}</span>
               </div>
             </div>
-            <div className="shrink-0 flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-2.5 py-1.5 rounded-lg">
+            <div className="shrink-0 flex items-center gap-1.5 bg-slate-950 border border-slate-900 px-3 py-2 rounded-lg">
               <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[9px] font-mono text-slate-400">Last Updated: <span className="text-slate-300 font-semibold">Real-time</span></span>
+              <span className="text-[9px] font-mono text-slate-500">STATUS: <span className="text-emerald-400 font-bold">NOMINAL</span></span>
             </div>
           </div>
         </div>
@@ -168,42 +169,65 @@ export default function DashboardTab({
               </div>
             </div>
 
-            <svg viewBox="0 0 580 360" className="w-full h-auto drop-shadow-lg select-none">
-              {/* Grid backdrop */}
+            <svg viewBox="0 0 580 360" className="w-full h-auto drop-shadow-2xl select-none blueprint-backdrop rounded-2xl border border-slate-900/80">
+              {/* High-tech filters & Grid definitions */}
               <defs>
                 <pattern id="floor-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(30, 41, 59, 0.2)" strokeWidth="0.5"/>
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.02)" strokeWidth="0.5"/>
                 </pattern>
-                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e293b" />
-                </marker>
+                <filter id="glow-emerald" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="3.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="glow-amber" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="3.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="glow-rose" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="4.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
               </defs>
               <rect width="100%" height="100%" fill="url(#floor-grid)" rx="16" />
 
+              {/* High-tech layout coordinate markings */}
+              <line x1="290" y1="10" x2="290" y2="350" stroke="rgba(255, 255, 255, 0.015)" strokeWidth="0.5" strokeDasharray="4,4" />
+              <line x1="10" y1="180" x2="570" y2="180" stroke="rgba(255, 255, 255, 0.015)" strokeWidth="0.5" strokeDasharray="4,4" />
+
               {/* FLOW LINES BETWEEN STATIONS */}
               {/* Flow M1 -> M5 */}
-              <path d="M 120 140 L 300 140" fill="none" stroke="#1e293b" strokeWidth="6" strokeLinecap="round"/>
-              <path d="M 120 140 L 300 140" fill="none" stroke="#10b981" strokeWidth="2" className="flow-active" />
+              <path d="M 120 140 L 300 140" fill="none" stroke="rgba(15, 23, 42, 0.5)" strokeWidth="6" strokeLinecap="round"/>
+              <path d="M 120 140 L 300 140" fill="none" stroke="#10b981" strokeWidth="2" filter="url(#glow-emerald)" className="flow-active" />
               
               {/* Flow M5 -> M3 (Robot) */}
-              <path d="M 340 100 L 480 100" fill="none" stroke="#1e293b" strokeWidth="6" strokeLinecap="round"/>
-              <path d="M 340 100 L 480 100" fill="none" stroke="#10b981" strokeWidth="2" className="flow-active" />
+              <path d="M 340 100 L 480 100" fill="none" stroke="rgba(15, 23, 42, 0.5)" strokeWidth="6" strokeLinecap="round"/>
+              <path d="M 340 100 L 480 100" fill="none" stroke="#10b981" strokeWidth="2" filter="url(#glow-emerald)" className="flow-active" />
               
               {/* Flow M2 -> M5 */}
-              <path d="M 300 240 L 300 130" fill="none" stroke="#1e293b" strokeWidth="6" strokeLinecap="round"/>
-              <path d="M 300 240 L 300 130" fill="none" stroke="#10b981" strokeWidth="2" className="flow-active" />
+              <path d="M 300 240 L 300 130" fill="none" stroke="rgba(15, 23, 42, 0.5)" strokeWidth="6" strokeLinecap="round"/>
+              <path d="M 300 240 L 300 130" fill="none" stroke="#10b981" strokeWidth="2" filter="url(#glow-emerald)" className="flow-active" />
 
               {/* Flow M3 -> M6 */}
-              <path d="M 480 130 L 480 240" fill="none" stroke="#1e293b" strokeWidth="6" strokeLinecap="round"/>
-              <path d="M 480 130 L 480 240" fill="none" stroke="#10b981" strokeWidth="2" className="flow-active" />
+              <path d="M 480 130 L 480 240" fill="none" stroke="rgba(15, 23, 42, 0.5)" strokeWidth="6" strokeLinecap="round"/>
+              <path d="M 480 130 L 480 240" fill="none" stroke="#10b981" strokeWidth="2" filter="url(#glow-emerald)" className="flow-active" />
 
-              {/* Flow M4 (Compressor) -> M6 (Hydraulic Pneumatics) */}
-              <path d="M 120 260 L 420 260" fill="none" stroke="#334155" strokeWidth="4" strokeDasharray="5,5" strokeLinecap="round"/>
+              {/* Flow M4 (Compressor) -> M6 (Hydraulic Press) */}
+              <path d="M 120 260 L 420 260" fill="none" stroke="#1e293b" strokeWidth="4" strokeDasharray="6,6" strokeLinecap="round" opacity="0.6"/>
+              
               {/* DYNAMIC MACHINERY SVG NODES */}
-              {renderMachineNode("M1", 100, 100, "CNC Mill")}
+              {renderMachineNode("M1", 120, 140, "CNC Mill")}
               {renderMachineNode("M5", 300, 100, "Conveyor Belt")}
               {renderMachineNode("M3", 480, 100, "Robot Arm")}
-              {renderMachineNode("M4", 100, 260, "Air Compressor")}
+              {renderMachineNode("M4", 120, 260, "Air Compressor")}
               {renderMachineNode("M2", 300, 260, "Injection Molder")}
               {renderMachineNode("M6", 480, 260, "Hydraulic Press")} 
             </svg>

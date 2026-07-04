@@ -15,44 +15,44 @@ export default function ProfitTab({
 
       {/* Financial KPI Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-          <div className="w-12 h-12 bg-emerald-500/10 rounded-xl border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+        <div className="glass-panel border border-slate-900/60 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden card-hover-lift">
+          <div className="w-12 h-12 bg-emerald-500/10 rounded-xl border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 status-glow-emerald">
             <DollarSign className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 block font-mono">COST SAVED TODAY</span>
-            <span className="text-2xl font-bold text-emerald-400 font-display">&#x20B9;{financials.cost_saved.toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500 block font-mono uppercase tracking-widest">COST SAVED TODAY</span>
+            <span className="text-2xl font-bold text-emerald-400 font-hud">&#x20B9;{financials.cost_saved.toLocaleString()}</span>
           </div>
           <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full translate-x-8 -translate-y-8"></div>
         </div>
 
-        <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-          <div className="w-12 h-12 bg-slate-800/40 rounded-xl border border-slate-700/30 flex items-center justify-center text-slate-300 shrink-0">
+        <div className="glass-panel border border-slate-900/60 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden card-hover-lift">
+          <div className="w-12 h-12 bg-slate-800/20 rounded-xl border border-slate-800 flex items-center justify-center text-slate-300 shrink-0">
             <Clock className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 block font-mono">DOWNTIME PREVENTED</span>
-            <span className="text-2xl font-bold text-white font-display">{financials.downtime_prevented} Hrs</span>
+            <span className="text-[10px] text-slate-500 block font-mono uppercase tracking-widest">DOWNTIME PREVENTED</span>
+            <span className="text-2xl font-bold text-white font-hud">{financials.downtime_prevented} <span className="text-xs text-slate-500 font-sans">HRS</span></span>
           </div>
         </div>
 
-        <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-          <div className="w-12 h-12 bg-slate-800/40 rounded-xl border border-slate-700/30 flex items-center justify-center text-slate-300 shrink-0">
+        <div className="glass-panel border border-slate-900/60 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden card-hover-lift">
+          <div className="w-12 h-12 bg-slate-800/20 rounded-xl border border-slate-800 flex items-center justify-center text-slate-300 shrink-0">
             <Zap className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 block font-mono">ENERGY COST SAVED</span>
-            <span className="text-2xl font-bold text-white font-display">&#x20B9;{(financials.energy_saved * 10).toLocaleString()}</span>
+            <span className="text-[10px] text-slate-500 block font-mono uppercase tracking-widest">ENERGY COST SAVED</span>
+            <span className="text-2xl font-bold text-white font-hud">&#x20B9;{(financials.energy_saved * 10).toLocaleString()}</span>
           </div>
         </div>
 
-        <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
-          <div className="w-12 h-12 bg-slate-800/40 rounded-xl border border-slate-700/30 flex items-center justify-center text-slate-300 shrink-0">
+        <div className="glass-panel border border-slate-900/60 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden card-hover-lift">
+          <div className="w-12 h-12 bg-slate-800/20 rounded-xl border border-slate-800 flex items-center justify-center text-slate-300 shrink-0">
             <TrendingUp className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 block font-mono">RECOVERED CAPACITY</span>
-            <span className="text-2xl font-bold text-white font-display">{financials.hours_recovered} Hrs</span>
+            <span className="text-[10px] text-slate-500 block font-mono uppercase tracking-widest">RECOVERED CAPACITY</span>
+            <span className="text-2xl font-bold text-white font-hud">{financials.hours_recovered} <span className="text-xs text-slate-500 font-sans">HRS</span></span>
           </div>
         </div>
       </div>
@@ -61,14 +61,14 @@ export default function ProfitTab({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* ROM Breakdown */}
-        <div className="lg:col-span-2 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+        <div className="lg:col-span-2 glass-panel border border-slate-900/60 rounded-2xl p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-              <h3 className="font-bold text-md font-display flex items-center gap-2">
+            <div className="flex items-center justify-between border-b border-slate-900 pb-3 mb-4">
+              <h3 className="font-bold text-md font-display flex items-center gap-2 text-white">
                 <TrendingUp className="w-5 h-5 text-emerald-400" />
                 AI Return on Maintenance (ROM) Analysis
               </h3>
-              <span className="text-xs text-slate-400 font-mono">SHOWCASE: ROBOT ARM M3</span>
+              <span className="text-xs text-slate-500 font-mono tracking-wider">SHOWCASE: ROBOT ARM M3</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
@@ -87,33 +87,33 @@ export default function ProfitTab({
                 </div>
               </div>
 
-              <div className="bg-slate-900/40 border border-slate-850 p-4 rounded-xl flex flex-col justify-center text-center space-y-1">
-                <span className="text-slate-400 text-xs font-semibold">ESTIMATED DECISION SAVINGS</span>
-                <span className="text-3xl font-extrabold text-emerald-400 font-display">&#x20B9;6,72,000</span>
-                <span className="text-[10px] text-slate-500 font-mono">ROM Ratio: <strong className="text-white">3,733%</strong></span>
+              <div className="bg-slate-950/40 border border-slate-900 p-4 rounded-xl flex flex-col justify-center text-center space-y-1">
+                <span className="text-slate-500 text-[10px] font-semibold uppercase tracking-wider">ESTIMATED DECISION SAVINGS</span>
+                <span className="text-3xl font-extrabold text-emerald-400 font-hud">&#x20B9;6,72,000</span>
+                <span className="text-[10px] text-slate-500 font-mono">ROM Ratio: <strong className="text-white font-hud">3,733%</strong></span>
               </div>
             </div>
           </div>
-          <div className="border-t border-slate-800 pt-3 mt-4 text-[10px] text-slate-400 font-mono italic">
+          <div className="border-t border-slate-900 pt-3 mt-4 text-[10px] text-slate-500 font-mono italic">
             *ROM Analysis calculation = (Expected Failure Loss - Planned Maintenance Cost) / Planned Maintenance Cost.
           </div>
         </div>
 
         {/* Business ROI Engine Card */}
-        <div className="glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+        <div className="glass-panel border border-slate-900/60 rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-md font-display mb-2 text-white">Edge Decision ROI Story</h3>
             <p className="text-xs text-slate-400 leading-relaxed mb-4">
               Traditional maintenance acts as a cost center. EdgeTwin AI turns maintenance into a **direct profit driver** by preventing unplanned asset halts and minimizing Scope 2 electricity consumption overhead.
             </p>
-            <div className="space-y-2 text-xs font-mono">
-              <div className="flex justify-between text-slate-300"><span>ROI Today:</span><span className="font-bold text-emerald-400">26.7x</span></div>
-              <div className="flex justify-between text-slate-300"><span>Decision Quality:</span><span className="font-bold text-white">{decisionQualityScore}%</span></div>
+            <div className="space-y-2.5 text-xs font-mono">
+              <div className="flex justify-between text-slate-300"><span>ROI Today:</span><span className="font-bold text-emerald-400 font-hud">26.7x</span></div>
+              <div className="flex justify-between text-slate-300"><span>Decision Quality:</span><span className="font-bold text-white font-hud">{decisionQualityScore}%</span></div>
             </div>
           </div>
           <button 
             onClick={() => sendCopilotQuery("Show our total savings today.")}
-            className="w-full mt-6 bg-slate-900 border border-slate-800 hover:bg-slate-850 hover:text-white text-slate-300 py-2 rounded-lg font-semibold text-xs transition flex items-center justify-center gap-1"
+            className="w-full mt-6 bg-[#04060b] border border-slate-900 hover:bg-slate-900 hover:text-white text-slate-300 py-2.5 rounded-lg font-semibold text-xs transition-all duration-150 active-press flex items-center justify-center gap-1"
           >
             Ask Copilot for ROM breakdown <ChevronRight className="w-3.5 h-3.5" />
           </button>
@@ -121,41 +121,41 @@ export default function ProfitTab({
       </div>
 
       {/* Estimated Client ROI Projection Matrix */}
-      <div className="glass-panel border border-slate-800 rounded-2xl p-6">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-5">
+      <div className="glass-panel border border-slate-900/60 rounded-2xl p-6">
+        <div className="flex items-center justify-between border-b border-slate-900 pb-3 mb-5">
           <div>
             <h3 className="font-bold text-md font-display text-white">Estimated Client ROI Projection Matrix</h3>
             <p className="text-[10px] text-slate-400 font-mono mt-0.5">Projected annual savings at enterprise scale — based on EdgeTwin AI's measured per-decision value.</p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">Decision Quality Score</span>
-            <span className="bg-slate-900 text-slate-200 px-2.5 py-1 rounded text-sm font-mono font-bold border border-slate-800">{decisionQualityScore}%</span>
+            <span className="text-[10px] uppercase tracking-wider text-slate-500 font-mono">Decision Quality</span>
+            <span className="bg-slate-950 text-slate-200 px-2.5 py-1 rounded text-sm font-hud font-bold border border-slate-900">{decisionQualityScore}%</span>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { label: "Small Factory", subtitle: "5–10 machines", machines: 8, decisions: 24, savings: "₹48 Lakh", savingsNum: 4800000, color: "text-slate-200", border: "border-slate-700", bg: "bg-slate-900/40" },
-            { label: "Medium Factory", subtitle: "15–25 machines", machines: 20, decisions: 60, savings: "₹2.4 Crore", savingsNum: 24000000, color: "text-emerald-400", border: "border-emerald-700/40", bg: "bg-emerald-950/10" },
-            { label: "Large Enterprise", subtitle: "50+ machines", machines: 50, decisions: 150, savings: "₹8.1 Crore", savingsNum: 81000000, color: "text-sky-400", border: "border-slate-700", bg: "bg-slate-900/40" },
+            { label: "Small Factory", subtitle: "5–10 machines", machines: 8, decisions: 24, savings: "₹48 Lakh", color: "text-slate-300", border: "border-slate-800", bg: "bg-slate-950/20" },
+            { label: "Medium Factory", subtitle: "15–25 machines", machines: 20, decisions: 60, savings: "₹2.4 Crore", color: "text-emerald-400", border: "border-emerald-700/20", bg: "bg-emerald-950/5" },
+            { label: "Large Enterprise", subtitle: "50+ machines", machines: 50, decisions: 150, savings: "₹8.1 Crore", color: "text-sky-400", border: "border-sky-700/10", bg: "bg-sky-950/5" },
           ].map(tier => (
-            <div key={tier.label} className={`rounded-2xl border p-5 flex flex-col justify-between ${tier.bg} ${tier.border}`}>
+            <div key={tier.label} className={`rounded-2xl border p-5 flex flex-col justify-between transition-all duration-300 hover:scale-[1.01] ${tier.bg} ${tier.border}`}>
               <div>
-                <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">{tier.subtitle}</span>
-                <h4 className={`font-bold text-lg font-display mt-1 ${tier.color}`}>{tier.label}</h4>
+                <span className="text-[10px] text-slate-500 font-mono uppercase tracking-widest">{tier.subtitle}</span>
+                <h4 className={`font-bold text-lg font-hud mt-1 ${tier.color}`}>{tier.label}</h4>
                 <div className="mt-3 space-y-2 text-xs text-slate-300">
                   <div className="flex justify-between"><span className="text-slate-400">Monitored Assets:</span><span className="font-mono">{tier.machines}</span></div>
                   <div className="flex justify-between"><span className="text-slate-400">AI Decisions / Year:</span><span className="font-mono">{tier.decisions}</span></div>
                   <div className="flex justify-between"><span className="text-slate-400">Avg Saved / Decision:</span><span className="font-mono">₹2,00,000</span></div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/5">
+              <div className="mt-4 pt-3 border-t border-slate-900">
                 <span className="text-[10px] uppercase tracking-wider text-slate-500 font-mono block">Est. Annual Savings</span>
-                <span className={`text-2xl font-extrabold font-display ${tier.color}`}>{tier.savings}</span>
+                <span className={`text-2xl font-hud font-bold ${tier.color}`}>{tier.savings}</span>
               </div>
             </div>
           ))}
         </div>
-        <div className="mt-5 p-3 bg-slate-900/40 rounded-xl border border-slate-850 text-[11px] text-slate-300 font-mono flex items-start gap-2">
+        <div className="mt-5 p-3 bg-slate-950/20 rounded-xl border border-slate-900 text-[11px] text-slate-300 font-mono flex items-start gap-2">
           <span className="text-emerald-400 shrink-0">✓</span>
           <span>All projections are calculated using EdgeTwin AI's actual observed <strong className="text-white">₹4,17,000 per-decision avoided loss</strong> (as demonstrated live in this session).</span>
         </div>

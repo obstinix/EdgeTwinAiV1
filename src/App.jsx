@@ -139,12 +139,13 @@ export default function App() {
     const status = data.status || "healthy";
     
     let strokeColor = "#10b981"; // Emerald
-    let glowClass = "";
+    let glowFilter = "url(#glow-emerald)";
     if (status === "critical") {
       strokeColor = "#f43f5e"; // Rose
-      glowClass = "animate-pulse";
+      glowFilter = "url(#glow-rose)";
     } else if (status === "warning") {
       strokeColor = "#f59e0b"; // Amber
+      glowFilter = "url(#glow-amber)";
     }
     
     const isSelected = selectedMachine === mid;
@@ -160,91 +161,94 @@ export default function App() {
       else if (temp > 98)            faultLabel = "HIGH TEMP";
       else if (load > 90)            faultLabel = "MOTOR OVERLOAD";
       else if (status === "critical") faultLabel = "CRITICAL FAULT";
-      else                           faultLabel = "INSPECT REQUIRED";
+      else                           faultLabel = "INSPECT REQ";
     }
 
     return (
       <g 
         key={mid}
         onClick={() => setSelectedMachine(mid)}
-        className="cursor-pointer group"
+        className="cursor-pointer group animate-[fadeIn_0.3s_ease-out_forwards]"
       >
-        {/* Hover Tooltip implementation via SVG title (simple native) */}
         <title>{`Asset: ${name}\nHealth: ${100 - (data.ai_prediction?.failure_probability || 0)}%\nRisk: ${data.ai_prediction?.failure_probability || 0}%\nTemp: ${data.metrics?.temperature}°C\nLoad: ${data.metrics?.load}%\nRUL: ${data.ai_prediction?.rul_hours} hrs`}</title>
         
+        {/* Main box background */}
         <rect 
           x={cx - 50} 
           y={cy - 40} 
           width="100" 
           height="80" 
-          rx="10" 
+          rx="6" 
           fill="#060913" 
-          stroke={strokeColor} 
-          strokeWidth={isSelected ? 2.5 : 1} 
+          stroke={isSelected ? strokeColor : "rgba(255,255,255,0.03)"} 
+          strokeWidth={isSelected ? 2 : 1} 
           className="transition-all duration-300"
         />
         
-        {/* Health % Indicator pill */}
-        <rect x={cx - 24} y={cy - 54} width="48" height="20" rx="6" fill="#0f172a" stroke={strokeColor} strokeWidth="1.5" />
-        <text x={cx} y={cy - 40} textAnchor="middle" fill={strokeColor} fontSize="12" fontWeight="900" className="font-mono tracking-wider">
-          {Math.max(0, 100 - (data.ai_prediction?.failure_probability || 0)).toFixed(1).replace(/\.0$/, '')}%
-        </text>
+        {/* HUD Brackets (Corner markers) with dynamic glow filters */}
+        <g stroke={strokeColor} strokeWidth={isSelected ? 1.8 : 1.2} fill="none" opacity={isSelected ? 1 : 0.7} filter={glowFilter}>
+          {/* Top-Left */}
+          <path d={`M ${cx - 50} ${cy - 28} L ${cx - 50} ${cy - 40} L ${cx - 38} ${cy - 40}`} />
+          {/* Top-Right */}
+          <path d={`M ${cx + 38} ${cy - 40} L ${cx + 50} ${cy - 40} L ${cx + 50} ${cy - 28}`} />
+          {/* Bottom-Left */}
+          <path d={`M ${cx - 50} ${cy + 28} L ${cx - 50} ${cy + 40} L ${cx - 38} ${cy + 40}`} />
+          {/* Bottom-Right */}
+          <path d={`M ${cx + 38} ${cy + 40} L ${cx + 50} ${cy + 40} L ${cx + 50} ${cy + 28}`} />
+        </g>
         
-        {/* High-tech Warning corner marker */}
-        {status !== "healthy" && (
-          <g transform={`translate(${cx + 34}, ${cy - 26})`} className="animate-pulse">
-            {/* Warning neon triangle */}
-            <path d="M0 -6 L6 4 L-6 4 Z" fill={strokeColor} />
-            {/* Inverted Exclamation Mark in warning */}
-            <rect x="-0.6" y="-3.5" width="1.2" height="3" fill="#000" rx="0.2" />
-            <circle cx="0" cy="1" r="0.8" fill="#000" />
-          </g>
-        )}
+        {/* Health % Indicator pill */}
+        <rect x={cx - 22} y={cy - 52} width="44" height="18" rx="4" fill="#030509" stroke={strokeColor} strokeWidth="1" opacity="0.9" />
+        <text x={cx} y={cy - 39} textAnchor="middle" fill={strokeColor} fontSize="10" fontWeight="800" className="font-hud tracking-wider">
+          {Math.max(0, 100 - (data.ai_prediction?.failure_probability || 0)).toFixed(0)}%
+        </text>
         
         {/* Glowing node center */}
         <circle 
           cx={cx} 
           cy={cy} 
-          r="20" 
-          fill="#0a0e17" 
+          r="16" 
+          fill="#04060b" 
           stroke={strokeColor} 
           strokeWidth="1.5" 
+          filter={glowFilter}
+          className={status !== "healthy" ? "animate-pulse" : ""}
         />
         
         <text 
           x={cx} 
-          y={cy + 5} 
+          y={cy + 4} 
           textAnchor="middle" 
           fill="#f8fafc" 
-          fontSize="13" 
-          fontWeight="900" 
-          className="font-mono tracking-wide"
+          fontSize="11" 
+          fontWeight="800" 
+          className="font-hud tracking-wider"
         >
           {mid}
         </text>
         
         <text 
           x={cx} 
-          y={cy + 56} 
+          y={cy + 54} 
           textAnchor="middle" 
-          fill="#e2e8f0" 
-          fontSize="12" 
-          fontWeight="800" 
+          fill="#cbd5e1" 
+          fontSize="10" 
+          fontWeight="700" 
           className="font-display uppercase tracking-widest drop-shadow-md"
         >
-          {name}
+          {name.split(" ")[0]}
         </text>
         {faultLabel && (
           <text
             x={cx}
-            y={cy + 70}
+            y={cy + 66}
             textAnchor="middle"
             fill={status === "critical" ? "#f43f5e" : "#f59e0b"}
             fontSize="8"
-            fontWeight="700"
-            letterSpacing="0.08em"
+            fontWeight="800"
+            className="font-mono tracking-widest animate-pulse"
           >
-            ⚠ {faultLabel}
+            {faultLabel}
           </text>
         )}
       </g>
@@ -1420,23 +1424,23 @@ export default function App() {
   return (
     <div className="flex h-screen overflow-hidden text-slate-100 font-sans">
       {/* SIDEBAR NAVIGATION */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-52'} bg-[#0a0e17] border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto transition-all duration-300`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-52'} bg-[#05070d] border-r border-slate-900/60 flex flex-col shrink-0 overflow-y-auto transition-all duration-300`}>
 
         {/* Logo + Toggle */}
-        <div className="border-b border-slate-800 flex items-center px-3 py-4 gap-3 justify-between">
+        <div className="border-b border-slate-900/60 flex items-center px-3.5 py-4.5 gap-3 justify-between">
           <div className="flex items-center gap-2 min-w-0">
             <div className="relative shrink-0">
-              <Cpu className="w-6 h-6 text-emerald-400" />
-              <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-[#0a0e17] ${wsConnected ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
+              <Cpu className="w-5.5 h-5.5 text-emerald-400" />
+              <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-[#05070d] ${wsConnected ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
             </div>
             <div className="min-w-0">
-              <h1 className="text-sm font-bold font-display tracking-tight text-white whitespace-nowrap">EdgeTwin AI</h1>
-              <p className="text-[9px] text-emerald-400 uppercase tracking-widest font-mono font-semibold whitespace-nowrap">Decision Intelligence</p>
+              <h1 className="text-sm font-bold font-hud tracking-widest text-white whitespace-nowrap">EDGETWIN AI</h1>
+              <p className="text-[8px] text-emerald-400 uppercase tracking-widest font-mono font-bold whitespace-nowrap">DECISION INTELLIGENCE</p>
             </div>
           </div>
           <button
             onClick={() => setSidebarOpen(prev => !prev)}
-            className="text-slate-400 hover:text-white transition p-1 rounded hover:bg-slate-800 shrink-0"
+            className="text-slate-400 hover:text-white transition p-1 rounded hover:bg-slate-900/80 shrink-0"
             title={sidebarOpen ? "Collapse" : "Expand"}
           >
             {sidebarOpen ? (
@@ -1448,7 +1452,7 @@ export default function App() {
         </div>
 
         {/* Nav Items */}
-        <nav className="px-3 pt-3 pb-2 space-y-0.5">
+        <nav className="px-3 pt-3 pb-2 space-y-1">
           {[
             { tab: "dashboard", icon: <Layers className="w-4 h-4 shrink-0" />, label: "Digital Twin Grid" },
             { tab: "profit", icon: <DollarSign className="w-4 h-4 shrink-0" />, label: "Profit ROI Hub" },
@@ -1463,7 +1467,7 @@ export default function App() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition ${activeTab === tab ? "bg-emerald-600/10 text-emerald-400" : "text-white hover:bg-slate-800/60"}`}
+              className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-semibold tracking-wider uppercase font-display transition-all duration-200 active-press ${activeTab === tab ? "bg-emerald-600/10 text-emerald-400 nav-indicator-active" : "text-slate-400 hover:text-white hover:bg-slate-900/50"}`}
             >
               {icon}
               <span className="whitespace-nowrap truncate">{label}</span>

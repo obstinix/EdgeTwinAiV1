@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Orbitron:wght@600;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -8,8 +8,8 @@
 
 body {
   margin: 0;
-  background-color: #080c14;
-  color: #e2e8f0;
+  background: radial-gradient(circle at top, #0b111e 0%, #03050a 100%);
+  color: #f1f5f9;
   overflow-x: hidden;
 }
 
@@ -22,31 +22,62 @@ body {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* Clean status borders for enterprise UI (no neon glows) */
-.glow-emerald {
-  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+.font-hud {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace;
 }
 
-.glow-amber {
-  border: 1px solid rgba(245, 158, 11, 0.25) !important;
+/* Premium Industrial Glassmorphism Panels */
+.glass-panel {
+  background: rgba(8, 12, 22, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-.glow-rose {
-  border: 1px solid rgba(244, 63, 94, 0.25) !important;
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Background pulse for critical machine widgets */
-@keyframes status-pulse-red {
-  0%, 100% {
-    background-color: rgba(244, 63, 94, 0.05);
-  }
-  50% {
-    background-color: rgba(244, 63, 94, 0.15);
-  }
+.glass-panel-hover:hover {
+  background: rgba(12, 18, 33, 0.85);
+  border-color: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(99, 102, 241, 0.05);
 }
 
-.pulse-critical {
-  animation: status-pulse-red 2s infinite ease-in-out;
+/* Custom micro-animations for clicks/presses */
+.active-press {
+  transition: transform 0.1s ease;
+}
+.active-press:active {
+  transform: scale(0.98);
+}
+
+/* Navigation vertical hover indicator */
+.nav-indicator-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 3px;
+  background-color: #10b981;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* Neon HUD status styles */
+.status-glow-emerald {
+  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.4));
+}
+
+.status-glow-amber {
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+}
+
+.status-glow-rose {
+  filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.5));
 }
 
 /* Pulse animation for active flow lines in digital twin floor plan */
@@ -60,18 +91,18 @@ body {
 }
 
 .flow-active {
-  stroke-dasharray: 8, 4;
-  animation: flow-pulse-anim 3s linear infinite;
+  stroke-dasharray: 10, 5;
+  animation: flow-pulse-anim 1.5s linear infinite;
 }
 
 /* Custom scrollbars for chat, timelines, and sidebar layouts */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f19;
+  background: #04060b;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -83,69 +114,18 @@ body {
   background: #334155;
 }
 
-/* Glassmorphism panel base */
-.glass-panel {
-  background: rgba(13, 19, 33, 0.65);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-panel-hover:hover {
-  background: rgba(18, 28, 48, 0.8);
-  border-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-}
-
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Walkthrough Highlights */
-@keyframes pulse-highlight {
-  0%, 100% {
-    border-color: rgba(16, 185, 129, 0.3) !important;
-  }
-  50% {
-    border-color: rgba(16, 185, 129, 0.7) !important;
-  }
-}
-
-.demo-highlight-ring {
-  animation: pulse-highlight 2s infinite ease-in-out;
-  border-width: 2px !important;
-}
-
-@keyframes pulse-highlight-danger {
-  0%, 100% {
-    border-color: rgba(244, 63, 94, 0.3) !important;
-  }
-  50% {
-    border-color: rgba(244, 63, 94, 0.7) !important;
-  }
-}
-
-.demo-highlight-danger {
-  animation: pulse-highlight-danger 2s infinite ease-in-out;
-  border-width: 2px !important;
+/* CSS transition utils */
+.status-transition {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Card hover elevation micro-interaction */
 .card-hover-lift {
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .card-hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
-
-/* Smooth status color transition */
-.status-transition {
-  transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* Animated health bar fill */
@@ -154,6 +134,30 @@ body {
   to   { opacity: 1; }
 }
 .health-bar {
-  animation: health-bar-fill 1.2s ease-out forwards;
+  animation: health-bar-fill 1s ease-out forwards;
 }
 
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-highlight {
+  0%, 100% {
+    border-color: rgba(16, 185, 129, 0.2) !important;
+  }
+  50% {
+    border-color: rgba(16, 185, 129, 0.6) !important;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+  }
+}
+
+.demo-highlight-ring {
+  animation: pulse-highlight 2s infinite ease-in-out;
+  border-width: 1px !important;
+}
+
+/* HUD Blueprint styling for Floorplan background */
+.blueprint-backdrop {
+  background: radial-gradient(circle at center, #070c16 0%, #030509 100%);
+}
