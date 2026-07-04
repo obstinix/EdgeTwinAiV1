@@ -3,13 +3,13 @@
 
 :root {
   font-family: 'Inter', system-ui, sans-serif;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #0b111e 0%, #03050a 100%);
-  color: #f1f5f9;
+  background: radial-gradient(circle at top, #ffffff 0%, #f4f6f9 100%);
+  color: #1e293b;
   overflow-x: hidden;
 }
 
@@ -26,13 +26,13 @@ body {
   font-family: 'Orbitron', 'JetBrains Mono', monospace;
 }
 
-/* Premium Industrial Glassmorphism Panels */
+/* Premium Minimalist Light Glassmorphism Panels */
 .glass-panel {
-  background: rgba(8, 12, 22, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
 }
 
 .glass-panel-hover {
@@ -40,10 +40,10 @@ body {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(12, 18, 33, 0.85);
-  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 97, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(99, 102, 241, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 0 15px rgba(0, 97, 255, 0.05);
 }
 
 /* Custom micro-animations for clicks/presses */
@@ -54,7 +54,7 @@ body {
   transform: scale(0.98);
 }
 
-/* Navigation vertical hover indicator */
+/* Navigation vertical hover indicator (Dropbox Blue) */
 .nav-indicator-active::before {
   content: "";
   position: absolute;
@@ -62,22 +62,22 @@ body {
   top: 15%;
   height: 70%;
   width: 3px;
-  background-color: #10b981;
+  background-color: #0061FF;
   border-radius: 0 4px 4px 0;
-  box-shadow: 0 0 8px #10b981;
+  box-shadow: 0 0 8px rgba(0, 97, 255, 0.4);
 }
 
-/* Neon HUD status styles */
+/* Neon HUD status styles re-targeted to light backgrounds */
 .status-glow-emerald {
-  filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.4));
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
 }
 
 .status-glow-amber {
-  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.3));
 }
 
 .status-glow-rose {
-  filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.5));
+  filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.4));
 }
 
 /* Pulse animation for active flow lines in digital twin floor plan */
@@ -102,16 +102,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #04060b;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #94a3b8;
 }
 
 /* CSS transition utils */
@@ -125,7 +125,7 @@ body {
 }
 .card-hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
 /* Animated health bar fill */
@@ -144,11 +144,11 @@ body {
 
 @keyframes pulse-highlight {
   0%, 100% {
-    border-color: rgba(16, 185, 129, 0.2) !important;
+    border-color: rgba(0, 97, 255, 0.1) !important;
   }
   50% {
-    border-color: rgba(16, 185, 129, 0.6) !important;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+    border-color: rgba(0, 97, 255, 0.4) !important;
+    box-shadow: 0 0 8px rgba(0, 97, 255, 0.06);
   }
 }
 
@@ -157,7 +157,7 @@ body {
   border-width: 1px !important;
 }
 
-/* HUD Blueprint styling for Floorplan background */
+/* HUD Blueprint styling for Floorplan background (Clean light grid) */
 .blueprint-backdrop {
-  background: radial-gradient(circle at center, #070c16 0%, #030509 100%);
+  background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 100%);
 }
