@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { 
   Activity, ShieldAlert, Cpu, TrendingUp, Calendar, AlertCircle, 
   Send, Layers, BarChart2, DollarSign, Clock, Zap, Download, 
-  CheckCircle, Play, Sparkles, RefreshCw, ChevronRight, HelpCircle, Volume2
+  CheckCircle, Play, Sparkles, RefreshCw, ChevronRight, Volume2
 } from "lucide-react";
 import { 
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, 
-  BarChart, Bar, Cell, AreaChart, Area
+  AreaChart, Area
 } from "recharts";
 
 // Helper to format markdown responses from the local copilot
@@ -65,7 +65,6 @@ export default function App() {
     hours_recovered: 12.0
   });
   const [failuresPrevented, setFailuresPrevented] = useState(4);
-  const [expandedWhy, setExpandedWhy] = useState(false);
   const [incidents, setIncidents] = useState([]);
   const [schedule, setSchedule] = useState([]);
   const [selectedMachine, setSelectedMachine] = useState("M3"); // Default to M3 Robot Arm (showcase example)
@@ -75,14 +74,14 @@ export default function App() {
   const [walkthroughStep, setWalkthroughStep] = useState(0); // 0 = inactive, 1-6 = steps
   const [projectionHorizon, setProjectionHorizon] = useState(0); // in hours: 0, 6, 12, 24, 72
   const [activeScenario, setActiveScenario] = useState("current"); // current, projected, best, worst, recommended
-  const [aiLearningLog, setAiLearningLog] = useState([
+  const [_aiLearningLog, setAiLearningLog] = useState([
     { timestamp: new Date(Date.now() - 3600000 * 24).toISOString(), type: "System Audit", event: "Model weights updated with historical vibration patterns on CNC joint.", status: "optimized" },
     { timestamp: new Date(Date.now() - 3600000 * 12).toISOString(), type: "Recommendation Ignored", event: "Air Compressor M4 standby shutoff deferred. Energy loss recorded.", status: "logged" }
   ]);
-  const [decisionsAccepted, setDecisionsAccepted] = useState(14);
+  const [_decisionsAccepted, setDecisionsAccepted] = useState(14);
   const [decisionQualityScore, setDecisionQualityScore] = useState(94);
   const [approvedMachines, setApprovedMachines] = useState(new Set());
-  const [esgMetrics, setEsgMetrics] = useState({
+  const [esgMetrics, _setEsgMetrics] = useState({
     energy_saved: 241,
     carbon_reduction: 31,
     annual_reduction: 4.8,
@@ -507,11 +506,10 @@ export default function App() {
   };
 
   // Run What-If simulation — pure frontend calculation, no backend needed
-  const runSimulation = () => {
+  const runSimulation = useCallback(() => {
     setSimLoading(true);
     const machine = telemetry[simMachine] || {};
     const failureProb = machine.ai_prediction?.failure_probability || 5;
-    const baseTemp = machine.metrics?.temperature || 75;
     const baseLoad = machine.metrics?.load || 60;
     
     // Financial base values per machine
@@ -556,14 +554,14 @@ export default function App() {
       setSimResult(result);
       setSimLoading(false);
     }, 600); // Simulate brief compute time for UX
-  };
+  }, [simMachine, simAction, simValue, telemetry]);
 
   // Auto-run simulation on slider change
   useEffect(() => {
     if (activeTab === "whatif") {
       runSimulation();
     }
-  }, [simMachine, simAction, simValue, activeTab]);
+  }, [runSimulation, activeTab]);
 
   // Generate historical data array for Recharts based on selected machine metrics
   useEffect(() => {
@@ -574,7 +572,6 @@ export default function App() {
     // Create 15 data points representing historical trend
     const points = Array.from({ length: 15 }, (_, i) => {
       const label = `${14 - i}m ago`;
-      const timeVal = i;
       
       // Let it ramp up if anomaly is active in the last points
       const hasAnomaly = telemetry[selectedMachine].anomaly_active;
@@ -2455,7 +2452,7 @@ export default function App() {
                 
                 {/* Machine selector */}
                 <div className="flex gap-2">
-                  {Object.entries(machineNamesMap).map(([mid, name]) => (
+                  {Object.entries(machineNamesMap).map(([mid]) => (
                     <button 
                       key={mid}
                       onClick={() => setSelectedMachine(mid)}
