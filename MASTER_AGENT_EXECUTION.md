@@ -255,17 +255,17 @@ If any box fails, the change is not done.
 Snapshot from the most recent technical audit. Treat this as the first work queue, not permanent scripture — check items off, re-audit, and rewrite this section as the codebase changes.
 
 **Must-fix (demo-breaking):**
-- [ ] AI Copilot chat has no local fallback and fails silently/hangs on the deployed link (`/api/copilot` unreachable, no `sendCopilotQueryLocal`) — highest-leverage fix in the codebase; wired into ~10 UI touchpoints. See Sections 4.5, 7.5.
-- [ ] Live deployment shows a client-side simulation only; the SQLite/WebSocket/background-simulator backend described in the architecture tab doesn't run against the public link. See Section 10.3.
-- [ ] Zero responsive breakpoints across hardcoded `grid-cols-2/3/4` layouts. See Section 9.
-- [ ] README is still the unmodified Vite template; last commit message is not representative of the project. See Section 12.
-- [ ] No `requirements.txt`; `backend/__pycache__` and `edgetwin.db` are committed. See Section 11.
+- [x] AI Copilot chat has no local fallback and fails silently/hangs on the deployed link (`/api/copilot` unreachable, no `sendCopilotQueryLocal`) — highest-leverage fix in the codebase; wired into ~10 UI touchpoints. See Sections 4.5, 7.5.
+- [x] Live deployment shows a client-side simulation only; the SQLite/WebSocket/background-simulator backend described in the architecture tab doesn't run against the public link. See Section 10.3.
+- [x] Zero responsive breakpoints across hardcoded `grid-cols-2/3/4` layouts. See Section 9.
+- [x] README is still the unmodified Vite template; last commit message is not representative of the project. See Section 12.
+- [x] No `requirements.txt`; `backend/__pycache__` and `edgetwin.db` are committed. See Section 11.
 
 **High-value (next pass):**
 - [ ] `App.jsx` is a single ~3,100-line file holding all state and all 9 tabs; no code-splitting, resulting in a ~679KB (191KB gzipped) bundle. See Sections 5, 10.1.
-- [ ] The "AI" is a hand-tuned formula and keyword-matching Copilot, while the pipeline diagram implies "Random Forest + Anomaly Detection." Pick and apply one honest story everywhere. See Section 10.4.
+- [x] The "AI" is a hand-tuned formula and keyword-matching Copilot, while the pipeline diagram implies "Random Forest + Anomaly Detection." Pick and apply one honest story everywhere. See Section 10.4.
 - [ ] Consider training one real, small model (scikit-learn RandomForest on AI4I 2020 or NASA CMAPSS) to back `predict_machine_health`, specifically because it turns "simulated" into "here's the model" under technical Q&A.
-- [ ] Leftover Vite boilerplate (default `App.css` classes, unused `react.svg`/`vite.svg`). See Section 8.
+- [x] Leftover Vite boilerplate (default `App.css` classes, unused `react.svg`/`vite.svg`). See Section 8.
 
 **Time-sensitive external note (not a code task):** this project lines up closely with Tata Technologies' InnoVent-27 hackathon ("AI at the Edge" for Automotive/Aerospace/Industrial Heavy Machinery, predictive maintenance and digital twins named as example categories) — if that's the target and registration isn't done yet, confirm current status before spending further time on repo polish.
 
