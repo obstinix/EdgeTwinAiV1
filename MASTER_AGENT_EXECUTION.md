@@ -264,6 +264,7 @@ Snapshot from the most recent technical audit. Treat this as the first work queu
 **High-value (next pass):**
 - [x] `App.jsx` is a single ~3,100-line file holding all state and all 9 tabs; no code-splitting, resulting in a ~679KB (191KB gzipped) bundle. See Sections 5, 10.1.
 - [x] The "AI" is a hand-tuned formula and keyword-matching Copilot, while the pipeline diagram implies "Random Forest + Anomaly Detection." Pick and apply one honest story everywhere. See Section 10.4.
+- [x] UI/UX premium visual redesign: Overhauled styling across all 9 dashboard tabs with custom radial canvas gradients, neon glows, HUD brackets, and Orbitron typography.
 - [ ] Consider training one real, small model (scikit-learn RandomForest on AI4I 2020 or NASA CMAPSS) to back `predict_machine_health`, specifically because it turns "simulated" into "here's the model" under technical Q&A.
 - [x] Leftover Vite boilerplate (default `App.css` classes, unused `react.svg`/`vite.svg`). See Section 8.
 
