@@ -15,7 +15,7 @@ def sigmoid(x):
 
 def predict_machine_health(machine_id, metrics, runtime_hours):
     """
-    Simulates Edge AI ML models (like XGBoost/RandomForest) to predict:
+    Simulates Edge AI ML models (like Interpretable Logistic Deviation Models) to predict:
     1. Failure Probability (%)
     2. Remaining Useful Life (RUL) in hours
     3. Energy Inefficiency Index

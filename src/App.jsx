@@ -2509,7 +2509,7 @@ export default function App() {
                   <div className="bg-slate-950/60 border border-slate-850 p-4 rounded-xl mt-6 text-center">
                     <span className="text-[10px] text-slate-500 block uppercase tracking-wider mb-1 font-mono">Model Confidence Score</span>
                     <span className="text-3xl font-extrabold text-emerald-400 font-display">94.2%</span>
-                    <span className="text-[9px] text-slate-500 block font-mono mt-0.5">Offline Edge inference running local tree ensembles</span>
+                    <span className="text-[9px] text-slate-500 block font-mono mt-0.5">Offline Edge inference running interpretable logistic scoring models</span>
                   </div>
                 </div>
               </div>
@@ -3044,7 +3044,7 @@ export default function App() {
                   <svg viewBox="0 0 280 480" className="w-full max-h-96" style={{fontSize:11}}>
                     {[
                       {label:"Sensor Telemetry",sub:"Temperature · Vibration · RPM",color:"#64748b",y:0},
-                      {label:"AI Risk Engine",sub:"Random Forest + Anomaly Detection",color:"#f59e0b",y:60},
+                      {label:"AI Risk Engine",sub:"Logistic Deviation Model",color:"#f59e0b",y:60},
                       {label:"Decision Engine",sub:"Multi-criteria Decision Analysis",color:"#6366f1",y:120},
                       {label:"Business Optimizer",sub:"ROI · ROM · Cost-Benefit Analysis",color:"#10b981",y:180},
                       {label:"Maintenance Planner",sub:"NLP Scheduling + Technician Dispatch",color:"#10b981",y:240},
