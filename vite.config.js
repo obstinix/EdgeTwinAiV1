@@ -16,5 +16,24 @@ export default defineConfig({
         ws: true,
       }
     }
+  },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          minSize: 0,
+          groups: [
+            {
+              name: 'vendor',
+              test: /node_modules/
+            },
+            {
+              name: 'tabs',
+              test: /components/
+            }
+          ]
+        }
+      }
+    }
   }
 })
