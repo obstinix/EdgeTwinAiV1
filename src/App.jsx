@@ -1652,7 +1652,7 @@ export default function App() {
                       </h3>
                       <p className="text-[9px] text-slate-500 leading-tight">Business Value Generated Through AI Decisions</p>
                     </div>
-                    <div className="flex-1 grid grid-cols-4 gap-4">
+                    <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
                         <span className="text-[10px] text-slate-500 block mb-0.5 uppercase tracking-wider">Estimated Savings</span>
                         <span className="text-xl font-display font-bold text-white tracking-tight flex items-baseline gap-0.5">
@@ -1682,10 +1682,10 @@ export default function App() {
               </div>
 
               {/* Layout Split: Floorplan on left, inspection panel on right */}
-              <div className="grid grid-cols-3 gap-6 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                 
                 {/* LEFT COLUMN: Floorplan & Executive Panels */}
-                <div className="col-span-2 flex flex-col gap-6">
+                <div className="lg:col-span-2 flex flex-col gap-6">
                   
                   {/* Visual SVG floor plan layout */}
                   <div className="glass-panel rounded-2xl p-6 border border-slate-800/60 relative overflow-hidden flex flex-col justify-between flex-1 min-h-[460px]">
@@ -1780,7 +1780,7 @@ export default function App() {
 
                   {telemetry[selectedMachine]?.status !== "healthy" ? (
                     <div className="space-y-4">
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {/* Option A */}
                         <div className="p-3 bg-slate-950/40 rounded-xl border border-slate-850 flex flex-col justify-between min-h-[140px] text-xs">
                           <div>
@@ -1935,7 +1935,7 @@ export default function App() {
                 })()}
 
                 {/* 2. Executive Business & Proactive Advisor Panel */}
-                <div className="grid grid-cols-3 gap-6 shrink-0">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 shrink-0">
                   {/* Business Impact Projections */}
                   <div className="glass-panel rounded-2xl p-5 border border-slate-800">
                     <h4 className="font-display font-bold text-sm text-white mb-4 border-b border-white/5 pb-2">Business Impact (Annualized Projection)</h4>
@@ -2008,7 +2008,7 @@ export default function App() {
                 </div>
 
                 {/* AI Decision Center & Explainable Inspection Panel */}
-                <div className="col-span-1 flex flex-col gap-5 overflow-y-auto pr-1 custom-scrollbar sticky top-0" style={{maxHeight: 'calc(100vh - 180px)'}}>
+                <div className="lg:col-span-1 flex flex-col gap-5 overflow-y-auto pr-1 custom-scrollbar sticky top-0" style={{maxHeight: 'calc(100vh - 180px)'}}>
                   {telemetry[selectedMachine] ? (
                     <>
                       {/* AI Executive Advisor & Financial Justification Panel */}
@@ -2269,7 +2269,7 @@ export default function App() {
               </div>
 
               {/* Financial KPI Grid */}
-              <div className="grid grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden">
                   <div className="w-12 h-12 bg-emerald-500/10 rounded-xl border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
                     <DollarSign className="w-6 h-6" />
@@ -2313,10 +2313,10 @@ export default function App() {
               </div>
 
               {/* Advanced Decision Economy & ROM Card */}
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
                 {/* ROM Breakdown */}
-                <div className="col-span-2 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                <div className="lg:col-span-2 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
                       <h3 className="font-bold text-md font-display flex items-center gap-2">
@@ -2326,7 +2326,7 @@ export default function App() {
                       <span className="text-xs text-slate-400 font-mono">SHOWCASE: ROBOT ARM M3</span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 text-xs text-slate-300">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
                       <div className="space-y-3.5">
                         <div className="flex justify-between border-b border-slate-900 pb-2">
                           <span>Planned Service Cost:</span>
@@ -2409,7 +2409,7 @@ export default function App() {
                     <span className="bg-slate-900 text-slate-200 px-2.5 py-1 rounded text-sm font-mono font-bold border border-slate-800">{decisionQualityScore}%</span>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {[
                     { label: "Small Factory", subtitle: "5–10 machines", machines: 8, decisions: 24, savings: "₹48 Lakh", savingsNum: 4800000, color: "text-slate-200", border: "border-slate-700", bg: "bg-slate-900/40" },
                     { label: "Medium Factory", subtitle: "15–25 machines", machines: 20, decisions: 60, savings: "₹2.4 Crore", savingsNum: 24000000, color: "text-emerald-400", border: "border-emerald-700/40", bg: "bg-emerald-950/10" },
@@ -2463,9 +2463,9 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Historical Recharts Line Graph */}
-                <div className="col-span-2 glass-panel border border-slate-800 rounded-2xl p-6">
+                <div className="lg:col-span-2 glass-panel border border-slate-800 rounded-2xl p-6">
                   <h3 className="font-bold text-md font-display mb-4">{machineNamesMap[selectedMachine]} - Historical Telemetry Trend</h3>
                   <div className="h-72">
                     <ResponsiveContainer width="100%" height="100%">
@@ -2482,7 +2482,7 @@ export default function App() {
                 </div>
 
                 {/* XAI Feature Importance Graph */}
-                <div className="col-span-1 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                <div className="lg:col-span-1 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
                   <div>
                     <h3 className="font-bold text-md font-display border-b border-slate-800 pb-3 mb-4">Edge AI Feature Importances</h3>
                     <p className="text-[11px] text-slate-400 mb-4">Relative weight contributions of parameters driving the failure model score.</p>
@@ -2524,10 +2524,10 @@ export default function App() {
                 <p className="text-slate-400 text-sm">Compare the financial consequences of operational decisions before scheduling shutdowns.</p>
               </div>
 
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
                 {/* Configuration Controls */}
-                <div className="col-span-1 glass-panel border border-slate-800 rounded-2xl p-6 space-y-4">
+                <div className="lg:col-span-1 glass-panel border border-slate-800 rounded-2xl p-6 space-y-4">
                   <h3 className="font-bold text-md font-display border-b border-slate-800 pb-3">Simulation Variables</h3>
                   
                   <div className="space-y-4 text-xs">
@@ -2590,7 +2590,7 @@ export default function App() {
                 </div>
 
                 {/* Simulation Output results */}
-                <div className="col-span-2 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                <div className="lg:col-span-2 glass-panel border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
                   {simLoading ? (
                     <div className="flex-1 flex flex-col items-center justify-center text-slate-400 text-xs">
                       <RefreshCw className="w-7 h-7 animate-spin mb-2 text-emerald-400" />
@@ -2604,7 +2604,7 @@ export default function App() {
                           Simulated Factory Impact Analysis
                         </h3>
 
-                        <div className="grid grid-cols-2 gap-4 text-xs">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                           {/* Financial Cost Column */}
                           <div className="p-4 bg-slate-950/60 border border-slate-900 rounded-xl space-y-2">
                             <span className="text-slate-500 block uppercase tracking-wider font-mono">PROJECTED COST</span>
@@ -2699,7 +2699,7 @@ export default function App() {
               </div>
 
               {/* Recommendation Cards */}
-              <div className="grid grid-cols-2 gap-6 text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
                 
                 {/* Opportunity 1 */}
                 <div className="glass-panel border border-slate-800 rounded-2xl p-5 flex flex-col justify-between">
@@ -2922,7 +2922,7 @@ export default function App() {
 
               {/* Timeline & Scenario Selectors */}
               <div className="glass-panel border border-slate-800 rounded-2xl p-6">
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <h4 className="font-semibold text-sm text-slate-200 mb-3 font-display">Projection Time Horizon</h4>
                     <div className="flex gap-2 flex-wrap">
@@ -2975,7 +2975,7 @@ export default function App() {
                 const healthColor = proj.factoryHealth > 70 ? 'text-emerald-400' : proj.factoryHealth > 40 ? 'text-amber-400' : 'text-rose-400';
                 const lossColor = proj.financialLoss > 100000 ? 'text-rose-400' : proj.financialLoss > 0 ? 'text-amber-400' : 'text-emerald-400';
                 return (
-                  <div className="grid grid-cols-4 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div className="glass-panel border border-slate-800 rounded-2xl p-5">
                       <span className="text-[10px] uppercase tracking-wider text-slate-400 font-mono">FACTORY HEALTH</span>
                       <div className={`text-3xl font-extrabold font-display mt-1 ${healthColor}`}>{proj.factoryHealth}%</div>
@@ -3034,7 +3034,7 @@ export default function App() {
                 <p className="text-slate-400 text-sm">EdgeTwin Intelligence Engine™ architecture, technology readiness levels, and competitive differentiation.</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* EdgeTwin Intelligence Engine™ */}
                 <div className="glass-panel border border-slate-800 rounded-2xl p-6 col-span-1">
                   <h3 className="font-bold text-md font-display text-white mb-1">EdgeTwin Intelligence Engine™</h3>
@@ -3153,7 +3153,7 @@ export default function App() {
               {/* Production Deployment Architecture */}
               <div className="glass-panel border border-slate-800 rounded-2xl p-6">
                 <h4 className="font-bold text-sm font-display text-white mb-4">Production Deployment Architecture</h4>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <div className="flex flex-col items-center gap-1 text-xs font-mono text-slate-300">
                       {[
@@ -3199,7 +3199,7 @@ export default function App() {
               </div>
 
               {/* Integration Partners + Scalability Roadmap */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Enterprise Integration Partners */}
                 <div className="glass-panel border border-slate-800 rounded-2xl p-6">
                   <h4 className="font-bold text-sm font-display text-white mb-1">Enterprise Integration Partners</h4>
